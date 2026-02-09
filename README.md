@@ -4,25 +4,30 @@ This project provides a web scraper for CITD announcements and a Streamlit appli
 
 ## Setup
 
-1.  **Install dependencies**:
+1.  **Install uv** (if not already installed):
     ```bash
-    pip3 install -r requirements.txt
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    uv sync
     ```
 
 ## Usage
 
 ### 1. Scraper
 
-To scrape the latest announcements from the CITD website:
+To scrape the latest announcements:
 
 ```bash
-python3 scraper.py
+uv run python scraper.py
 ```
 
 *Note: If the scraper encounters Cloudflare protection (403 Forbidden), it will attempt to use `curl_cffi` to bypass it. If that fails, you can generate data from local HTML files (if available) using:*
 
 ```bash
-python3 process_local.py
+uv run python process_local.py
 ```
 
 ### 2. Viewer (Streamlit App)
@@ -30,7 +35,7 @@ python3 process_local.py
 To view and tag the announcements:
 
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 The app will open in your default browser (usually at `http://localhost:8501`).
