@@ -7,6 +7,7 @@ from datetime import datetime
 import hashlib
 from urllib.parse import urljoin, urlparse
 import re
+from markdownify import markdownify as md
 
 # Configuration
 BASE_URL = "https://www.citd.edu.vn"
@@ -131,16 +132,27 @@ def parse_detail_page(content, url):
         content_divs = tree.xpath('//div[contains(@class, "tdb_single_content")]//div[contains(@class, "tdb-block-inner")]')
         if content_divs:
             content_div = content_divs[0]
-            # Convert to simple text or keep HTML. For now, let's keep text but maybe extracting links is important
-            content_text = content_div.text_content().strip()
             
-            # Extract assets (PDFs, docs)
-            asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls")]/@href')
+            # Remove redundant "Download" buttons from wp-block-file
+            for btn in content_div.xpath('.//a[contains(@class, "wp-block-file__button")]'):
+                btn.getparent().remove(btn)
+            
+            # Remove object tags
+            for obj in content_div.xpath('.//object'):
+                obj.getparent().remove(obj)
+                
+            # Convert to Markdown
+            content_html = html.tostring(content_div, encoding='unicode')
+            content_text = md(content_html, heading_style="ATX").strip()
+            
+            # Extract assets
+            asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls") or contains(@href, ".zip") or contains(@href, ".rar")]/@href')
+            asset_links = list(set(asset_links))
         else:
             content_text = ""
             asset_links = []
         
-        # Tags - typically in .tdb-tags or similar. Did not clearly see in view_file, generic fallback
+        # Tags
         tags = tree.xpath('//ul[contains(@class, "tdb-tags")]/li/a/text()')
         
         return {

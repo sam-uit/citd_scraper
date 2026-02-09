@@ -8,6 +8,7 @@ dependencies = [
     "beautifulsoup4>=4.14.3",
     "curl-cffi>=0.14.0",
     "lxml>=6.0.2",
+    "markdownify>=1.2.2",
     "pandas>=2.3.3",
     "python-slugify>=8.0.4",
     "requests>=2.32.5",
