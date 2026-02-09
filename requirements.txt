@@ -1,0 +1,7 @@
+requests
+lxml
+beautifulsoup4
+python-slugify
+streamlit
+pandas
+curl_cffi

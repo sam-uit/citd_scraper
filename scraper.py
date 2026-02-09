@@ -1,0 +1,289 @@
+import os
+import time
+import json
+from curl_cffi import requests as crequests
+from lxml import html
+from datetime import datetime
+import hashlib
+from urllib.parse import urljoin, urlparse
+import re
+
+# Configuration
+BASE_URL = "https://www.citd.edu.vn"
+LIST_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-hoc-vu/"
+DATA_DIR = "thongbao"
+ASSETS_DIR = os.path.join(DATA_DIR, "assets")
+
+# Create directories
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(ASSETS_DIR, exist_ok=True)
+
+HEADERS = {
+    # 'User-Agent': 'Mozilla/5.0 ...' # Let curl_cffi handle this
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'none',
+    'Sec-Fetch-User': '?1',
+    'Cache-Control': 'max-age=0',
+}
+
+def clean_text(text):
+    if text:
+        return re.sub(r'\s+', ' ', text).strip()
+    return ""
+
+def parse_date(date_str):
+    # Try different formats if needed. Default seems to be generic or specific to locale
+    # Example: "10/01/2024" or "10 Tháng Một, 2024"
+    try:
+        # Placeholder for actual date parsing logic based on observation
+        return datetime.strptime(date_str, "%d/%m/%Y") 
+    except ValueError:
+        return None
+
+def extract_id_from_url(url):
+    path = urlparse(url).path
+    return path.strip('/').split('/')[-1]
+
+def download_asset(url):
+    try:
+        # Use curl_cffi for assets too, just in case
+        response = crequests.get(url, headers=HEADERS, impersonate="chrome", timeout=30)
+        if response.status_code == 200:
+            filename = os.path.basename(urlparse(url).path)
+            if not filename:
+                filename = f"asset_{hashlib.md5(url.encode()).hexdigest()}"
+            filepath = os.path.join(ASSETS_DIR, filename)
+            with open(filepath, 'wb') as f:
+                f.write(response.content)
+            return filepath
+    except Exception as e:
+        print(f"Error downloading asset {url}: {e}")
+    return None
+
+
+def parse_list_page(content, is_local=False):
+    tree = html.fromstring(content)
+    announcements = []
+    
+    # Logic to find all announcement items
+    # We target .td_module_wrap which seems common for both grid and list layouts
+    items = tree.xpath('//div[contains(@class, "td_module_wrap")]')
+    
+    seen_urls = set()
+    
+    for item in items:
+        try:
+            # Title & URL
+            link_node = item.xpath('.//h3[contains(@class, "entry-title")]/a')
+            if not link_node:
+                continue
+                
+            url = link_node[0].get('href')
+            title = link_node[0].get('title')
+            
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+            
+            # Author
+            author_node = item.xpath('.//span[contains(@class, "td-post-author-name")]/a')
+            author = author_node[0].text if author_node else "Unknown"
+            
+            # Time
+            time_node = item.xpath('.//span[contains(@class, "td-post-date")]/time')
+            time_str = time_node[0].get('datetime') if time_node else ""
+            
+            announcements.append({
+                "url": url,
+                "title": title,
+                "author": author,
+                "time_str": time_str
+            })
+        except Exception as e:
+            print(f"Error parsing item: {e}")
+            continue
+            
+    return announcements
+
+def parse_detail_page(content, url):
+    tree = html.fromstring(content)
+    
+    try:
+        # Title
+        title_nodes = tree.xpath('//h1[contains(@class, "tdb-title-text")]/text()')
+        title = title_nodes[0] if title_nodes else ""
+        
+        # Author
+        author_nodes = tree.xpath('//a[contains(@class, "tdb-author-name")]/text()')
+        author = author_nodes[0] if author_nodes else "Unknown"
+
+        # Date
+        date_nodes = tree.xpath('//time[contains(@class, "entry-date")]/@datetime')
+        date_str = date_nodes[0] if date_nodes else ""
+
+        # Content
+        content_divs = tree.xpath('//div[contains(@class, "tdb_single_content")]//div[contains(@class, "tdb-block-inner")]')
+        if content_divs:
+            content_div = content_divs[0]
+            # Convert to simple text or keep HTML. For now, let's keep text but maybe extracting links is important
+            content_text = content_div.text_content().strip()
+            
+            # Extract assets (PDFs, docs)
+            asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls")]/@href')
+        else:
+            content_text = ""
+            asset_links = []
+        
+        # Tags - typically in .tdb-tags or similar. Did not clearly see in view_file, generic fallback
+        tags = tree.xpath('//ul[contains(@class, "tdb-tags")]/li/a/text()')
+        
+        return {
+            "title": title,
+            "author": author,
+            "date": date_str,
+            "content": content_text, 
+            "tags": tags,
+            "asset_links": asset_links
+        }
+    except Exception as e:
+        print(f"Error parsing detail {url}: {e}")
+        return None
+
+def fetch_url(url, retries=3):
+    print(f"Fetching {url}...")
+    for i in range(retries):
+        try:
+            # impersonate="chrome" handles TLS fingerprinting
+            response = crequests.get(url, headers=HEADERS, impersonate="chrome", timeout=10)
+            if response.status_code == 200:
+                return response.content
+            elif response.status_code == 404:
+                print(f"404 Not Found: {url}")
+                return None
+            else:
+                print(f"Status {response.status_code} for {url}. Retrying...")
+                time.sleep(2 * (i + 1))
+        except Exception as e:
+            print(f"Error fetching {url}: {e}. Retrying...")
+            time.sleep(2 * (i + 1))
+    return None
+
+def save_announcement(data):
+    # ID from URL or title hash
+    if not data or not data.get('title'):
+        return
+
+    # Create slug for ID/Filename
+    from slugify import slugify
+    slug = slugify(data['title'])
+    if not slug:
+         slug = hashlib.md5(data['url'].encode()).hexdigest()
+    
+    # Date for sorting: yyyy-mm-dd-hh-mm-ss
+    # The date string from HTML is ISO-like: 2026-02-09T11:39:35+07:00
+    # We need to convert it to the requested format.
+    date_str = data.get('date', '')
+    formatted_date = ""
+    try:
+        if date_str:
+            dt = datetime.fromisoformat(date_str)
+            formatted_date = dt.strftime("%Y-%m-%d-%H-%M-%S")
+        else:
+            # Fallback to current time if no date found
+            formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    except Exception as e:
+        print(f"Error parsing date {date_str}: {e}")
+        formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    
+    # Filenames
+    base_name = f"{formatted_date}_{slug}"
+    json_path = os.path.join(DATA_DIR, f"{base_name}.json")
+    md_path = os.path.join(DATA_DIR, f"{base_name}.md")
+    
+    # Download assets
+    local_assets = []
+    for asset_url in data.get('asset_links', []):
+        local_path = download_asset(asset_url)
+        if local_path:
+            local_assets.append(local_path)
+            
+    # Save Markdown Content
+    with open(md_path, 'w', encoding='utf-8') as f:
+        f.write(f"# {data['title']}\n\n")
+        f.write(f"**Author:** {data['author']}\n")
+        f.write(f"**Date:** {data['date']}\n")
+        f.write(f"**Original URL:** {data['url']}\n\n")
+        f.write(data['content'])
+        
+        if local_assets:
+            f.write("\n\n## Attachments\n")
+            for asset in local_assets:
+                rel_path = os.path.relpath(asset, DATA_DIR)
+                f.write(f"- [{os.path.basename(asset)}]({rel_path})\n")
+
+    # Save JSON Metadata
+    meta_data = {
+        "id": slug,
+        "title": data['title'],
+        "date": formatted_date,
+        "author": data['author'],
+        "topic": "Thông báo học vụ", # Default topic for this scraper
+        "tags": data['tags'],
+        "content_md_path": os.path.basename(md_path),
+        "original_url": data['url'],
+        "assets": [os.path.basename(a) for a in local_assets]
+    }
+    
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(meta_data, f, ensure_ascii=False, indent=4)
+        
+    print(f"Saved: {data['title']}")
+
+def main():
+    print("Starting CITD Scraper...")
+    
+    # Loop through pages
+    page = 1
+    max_pages = 5 # Safety limit for now, user can increase
+    
+    while page <= max_pages:
+        url = LIST_URL
+        if page > 1:
+            url = f"{LIST_URL}page/{page}/"
+            
+        print(f"Scraping Page {page}...")
+        content = fetch_url(url)
+        if not content:
+            print("Failed to retrieve page content. Stopping.")
+            break
+            
+        announcements = parse_list_page(content)
+        if not announcements:
+            print("No announcements found on this page. Stopping.")
+            break
+            
+        for item in announcements:
+            detail_url = item['url']
+            detail_content = fetch_url(detail_url)
+            if detail_content:
+                detail_data = parse_detail_page(detail_content, detail_url)
+                if detail_data:
+                    detail_data['url'] = detail_url
+                    save_announcement(detail_data)
+            
+            # Rate limiting
+            time.sleep(1)
+            
+        page += 1
+        time.sleep(2)
+        
+    print("Scraping completed.")
+
+if __name__ == "__main__":
+    main()
