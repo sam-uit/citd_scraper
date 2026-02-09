@@ -50,6 +50,10 @@ The app will open in your default browser (usually at `http://localhost:8501`).
     -   View details and download attachments.
     -   **Tagging**: Add or edit tags for any announcement. Tags are saved locally.
 
+## Known Issues
+
+-   **Asset Downloading**: The CITD website uses strict Cloudflare protection which may block automated downloads of attached files (PDF/Doc), resulting in 403 Forbidden errors. The scraper will attempt to download them, but if blocked, the files will not be saved locally. You can still access the files via the links in the generated Markdown content.
+
 ## Project Structure
 
 -   `scraper.py`: Main scraping script.
