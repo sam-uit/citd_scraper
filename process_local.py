@@ -1,7 +1,7 @@
 
 import os
 import json
-from scraper import parse_list_page, parse_detail_page, save_announcement
+from scraper import parse_list_page, parse_detail_page, save_announcement, check_if_exists, generate_id_and_date
 
 BASE_PATH = "/Users/samdinh/UIT/citd_scraper"
 LIST_FILE = os.path.join(BASE_PATH, "thongbaohocvu.html")
@@ -26,6 +26,17 @@ def process_local():
                     detail_content = df.read()
                     
                     for item in announcements:
+                        # Check duplicate before processing
+                        temp_data = {'title': item['title'], 'driver': '', 'url': item['url']}
+                        if item.get('time_str'):
+                             temp_data['date'] = item['time_str']
+                        
+                        slug, formatted_date = generate_id_and_date(temp_data)
+                        
+                        exists, should_update = check_if_exists(slug, formatted_date)
+                        if exists and not should_update:
+                            continue
+
                         # We use the title from the list, but content from the detail file
                         # We need to preserve the URL from the list for unique ID generation
                         
@@ -33,9 +44,6 @@ def process_local():
                         if detail_data:
                             # Override title/date/author from list if we want consistency, 
                             # OR use detail page data. 
-                            # Since all items will point to same detail content, they will look identical
-                            # except for URL. 
-                            # Let's mix them: Use list title/date/url, but detail content.
                             
                             detail_data['url'] = item['url']
                             detail_data['title'] = item['title'] 

@@ -8,6 +8,8 @@ import hashlib
 from urllib.parse import urljoin, urlparse
 import re
 from markdownify import markdownify as md
+from slugify import slugify
+from models.ThongBao import ThongBao
 
 # Configuration
 BASE_URL = "https://www.citd.edu.vn"
@@ -63,6 +65,9 @@ def download_asset(url):
             with open(filepath, 'wb') as f:
                 f.write(response.content)
             return filepath
+        else:
+            # print(f"DEBUG: Failed to download {url}, status: {response.status_code}") # user asked to remove debug
+            pass
     except Exception as e:
         print(f"Error downloading asset {url}: {e}")
     return None
@@ -186,20 +191,13 @@ def fetch_url(url, retries=3):
             time.sleep(2 * (i + 1))
     return None
 
-def save_announcement(data):
-    # ID from URL or title hash
-    if not data or not data.get('title'):
-        return
-
-    # Create slug for ID/Filename
-    from slugify import slugify
+def generate_id_and_date(data):
+     # Create slug for ID/Filename
     slug = slugify(data['title'])
     if not slug:
          slug = hashlib.md5(data['url'].encode()).hexdigest()
     
     # Date for sorting: yyyy-mm-dd-hh-mm-ss
-    # The date string from HTML is ISO-like: 2026-02-09T11:39:35+07:00
-    # We need to convert it to the requested format.
     date_str = data.get('date', '')
     formatted_date = ""
     try:
@@ -212,6 +210,49 @@ def save_announcement(data):
     except Exception as e:
         print(f"Error parsing date {date_str}: {e}")
         formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        
+    return slug, formatted_date
+
+def check_if_exists(slug, formatted_date):
+    """
+    Check if a ThongBao with this ID exists and if the content date is the same.
+    Returns: (exists: bool, should_update: bool)
+    """
+    # Assuming filename pattern: {date}_{slug}.json
+    # We need to search for the slug in files since date might change or we might not know it exactly?
+    # Actually, the user wants: "if exists AND date unchanged -> skip"
+    
+    # Let's look for any file ending in _{slug}.json
+    try:
+        valid_files = [f for f in os.listdir(DATA_DIR) if f.endswith(f"_{slug}.json")]
+    except FileNotFoundError:
+        return False, True
+    
+    if not valid_files:
+        return False, True
+    
+    # Check the latest one
+    latest_file = sorted(valid_files)[-1]
+    json_path = os.path.join(DATA_DIR, latest_file)
+    
+    try:
+        existing = ThongBao.load_from_json(json_path)
+        if existing.date == formatted_date:
+            print(f"Skipping {slug}: Date {formatted_date} unchanged. Scraped at {existing.created_at}")
+            return True, False # Exists, No update needed
+        else:
+            print(f"Updating {slug}: Date changed from {existing.date} to {formatted_date}")
+            return True, True # Exists, Update needed
+    except Exception as e:
+        print(f"Error checking duplicate for {slug}: {e}")
+        return False, True
+
+def save_announcement(data):
+    # ID from URL or title hash
+    if not data or not data.get('title'):
+        return
+
+    slug, formatted_date = generate_id_and_date(data)
     
     # Filenames
     base_name = f"{formatted_date}_{slug}"
@@ -238,23 +279,22 @@ def save_announcement(data):
             for asset in local_assets:
                 rel_path = os.path.relpath(asset, DATA_DIR)
                 f.write(f"- [{os.path.basename(asset)}]({rel_path})\n")
-
-    # Save JSON Metadata
-    meta_data = {
-        "id": slug,
-        "title": data['title'],
-        "date": formatted_date,
-        "author": data['author'],
-        "topic": "Thông báo học vụ", # Default topic for this scraper
-        "tags": data['tags'],
-        "content_md_path": os.path.basename(md_path),
-        "original_url": data['url'],
-        "assets": [os.path.basename(a) for a in local_assets]
-    }
+                
+    # Create ThongBao object
+    tb = ThongBao(
+        id=slug,
+        title=data['title'],
+        date=formatted_date,
+        author=data['author'],
+        topic="Thông báo học vụ",
+        tags=data.get('tags', []),
+        content_md_path=os.path.basename(md_path),
+        original_url=data['url'],
+        assets=[os.path.basename(a) for a in local_assets]
+    )
     
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(meta_data, f, ensure_ascii=False, indent=4)
-        
+    # Save using Model
+    tb.save_to_json(json_path)
     print(f"Saved: {data['title']}")
 
 def main():
@@ -281,6 +321,20 @@ def main():
             break
             
         for item in announcements:
+            # Check duplicate before fetching details
+            # Need to generate temp ID/Date from List item if available
+            temp_data = {'title': item['title'], 'driver': '', 'url': item['url']}
+            if item.get('time_str'):
+                 temp_data['date'] = item['time_str']
+            
+            slug, formatted_date = generate_id_and_date(temp_data)
+            
+            # Check if exists
+            exists, should_update = check_if_exists(slug, formatted_date)
+            
+            if exists and not should_update:
+                continue
+                
             detail_url = item['url']
             detail_content = fetch_url(detail_url)
             if detail_content:
