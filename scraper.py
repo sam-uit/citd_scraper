@@ -93,7 +93,8 @@ def parse_list_page(content, is_local=False):
     
     # Logic to find all announcement items
     # We target .td_module_wrap which seems common for both grid and list layouts
-    items = tree.xpath('//div[contains(@class, "td_module_wrap")]')
+    # Also include tdb_module_cat_grid_1 and tdb_module_cat_grid_2 for top grid items
+    items = tree.xpath('//div[contains(@class, "td_module_wrap") or contains(@class, "tdb_module_cat_grid")]')
     
     seen_urls = set()
     
