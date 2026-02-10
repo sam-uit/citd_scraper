@@ -5,6 +5,7 @@ from scraper import parse_list_page, parse_detail_page, save_announcement, check
 
 BASE_PATH = "/Users/samdinh/UIT/citd_scraper"
 LIST_FILE = os.path.join(BASE_PATH, "thongbaohocvu.html")
+THONG_BAO_CHUNG = os.path.join(BASE_PATH, "thongbaochung.html")
 DETAIL_FILE = os.path.join(BASE_PATH, "thongbaocuthe.html")
 
 def process_local():

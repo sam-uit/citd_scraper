@@ -14,6 +14,7 @@ from models.ThongBao import ThongBao
 # Configuration
 BASE_URL = "https://www.citd.edu.vn"
 LIST_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-hoc-vu/"
+THONG_BAO_CHUNG_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-chung/"
 DATA_DIR = "thongbao"
 ASSETS_DIR = os.path.join(DATA_DIR, "assets")
 
@@ -45,7 +46,7 @@ def parse_date(date_str):
     # Example: "10/01/2024" or "10 Tháng Một, 2024"
     try:
         # Placeholder for actual date parsing logic based on observation
-        return datetime.strptime(date_str, "%d/%m/%Y") 
+        return datetime.strptime(date_str, "%d/%m/%Y")
     except ValueError:
         return None
 
@@ -76,35 +77,35 @@ def download_asset(url):
 def parse_list_page(content, is_local=False):
     tree = html.fromstring(content)
     announcements = []
-    
+
     # Logic to find all announcement items
     # We target .td_module_wrap which seems common for both grid and list layouts
     items = tree.xpath('//div[contains(@class, "td_module_wrap")]')
-    
+
     seen_urls = set()
-    
+
     for item in items:
         try:
             # Title & URL
             link_node = item.xpath('.//h3[contains(@class, "entry-title")]/a')
             if not link_node:
                 continue
-                
+
             url = link_node[0].get('href')
             title = link_node[0].get('title')
-            
+
             if url in seen_urls:
                 continue
             seen_urls.add(url)
-            
+
             # Author
             author_node = item.xpath('.//span[contains(@class, "td-post-author-name")]/a')
             author = author_node[0].text if author_node else "Unknown"
-            
+
             # Time
             time_node = item.xpath('.//span[contains(@class, "td-post-date")]/time')
             time_str = time_node[0].get('datetime') if time_node else ""
-            
+
             announcements.append({
                 "url": url,
                 "title": title,
@@ -114,17 +115,17 @@ def parse_list_page(content, is_local=False):
         except Exception as e:
             print(f"Error parsing item: {e}")
             continue
-            
+
     return announcements
 
 def parse_detail_page(content, url):
     tree = html.fromstring(content)
-    
+
     try:
         # Title
         title_nodes = tree.xpath('//h1[contains(@class, "tdb-title-text")]/text()')
         title = title_nodes[0] if title_nodes else ""
-        
+
         # Author
         author_nodes = tree.xpath('//a[contains(@class, "tdb-author-name")]/text()')
         author = author_nodes[0] if author_nodes else "Unknown"
@@ -137,34 +138,34 @@ def parse_detail_page(content, url):
         content_divs = tree.xpath('//div[contains(@class, "tdb_single_content")]//div[contains(@class, "tdb-block-inner")]')
         if content_divs:
             content_div = content_divs[0]
-            
+
             # Remove redundant "Download" buttons from wp-block-file
             for btn in content_div.xpath('.//a[contains(@class, "wp-block-file__button")]'):
                 btn.getparent().remove(btn)
-            
+
             # Remove object tags
             for obj in content_div.xpath('.//object'):
                 obj.getparent().remove(obj)
-                
+
             # Convert to Markdown
             content_html = html.tostring(content_div, encoding='unicode')
             content_text = md(content_html, heading_style="ATX").strip()
-            
+
             # Extract assets
             asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls") or contains(@href, ".zip") or contains(@href, ".rar")]/@href')
             asset_links = list(set(asset_links))
         else:
             content_text = ""
             asset_links = []
-        
+
         # Tags
         tags = tree.xpath('//ul[contains(@class, "tdb-tags")]/li/a/text()')
-        
+
         return {
             "title": title,
             "author": author,
             "date": date_str,
-            "content": content_text, 
+            "content": content_text,
             "tags": tags,
             "asset_links": asset_links
         }
@@ -196,7 +197,7 @@ def generate_id_and_date(data):
     slug = slugify(data['title'])
     if not slug:
          slug = hashlib.md5(data['url'].encode()).hexdigest()
-    
+
     # Date for sorting: yyyy-mm-dd-hh-mm-ss
     date_str = data.get('date', '')
     formatted_date = ""
@@ -210,7 +211,7 @@ def generate_id_and_date(data):
     except Exception as e:
         print(f"Error parsing date {date_str}: {e}")
         formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        
+
     return slug, formatted_date
 
 def check_if_exists(slug, formatted_date):
@@ -221,20 +222,20 @@ def check_if_exists(slug, formatted_date):
     # Assuming filename pattern: {date}_{slug}.json
     # We need to search for the slug in files since date might change or we might not know it exactly?
     # Actually, the user wants: "if exists AND date unchanged -> skip"
-    
+
     # Let's look for any file ending in _{slug}.json
     try:
         valid_files = [f for f in os.listdir(DATA_DIR) if f.endswith(f"_{slug}.json")]
     except FileNotFoundError:
         return False, True
-    
+
     if not valid_files:
         return False, True
-    
+
     # Check the latest one
     latest_file = sorted(valid_files)[-1]
     json_path = os.path.join(DATA_DIR, latest_file)
-    
+
     try:
         existing = ThongBao.load_from_json(json_path)
         if existing.date == formatted_date:
@@ -253,19 +254,19 @@ def save_announcement(data):
         return
 
     slug, formatted_date = generate_id_and_date(data)
-    
+
     # Filenames
     base_name = f"{formatted_date}-{slug}"
     json_path = os.path.join(DATA_DIR, f"{base_name}.json")
     md_path = os.path.join(DATA_DIR, f"{base_name}.md")
-    
+
     # Download assets
     local_assets = []
     for asset_url in data.get('asset_links', []):
         local_path = download_asset(asset_url)
         if local_path:
             local_assets.append(local_path)
-            
+
     # Save Markdown Content
     with open(md_path, 'w', encoding='utf-8') as f:
         f.write(f"# {data['title']}\n\n")
@@ -273,13 +274,13 @@ def save_announcement(data):
         f.write(f"- **Date:** {data['date']}\n")
         f.write(f"- **Original URL:** {data['url']}\n\n")
         f.write(data['content'])
-        
+
         if local_assets:
             f.write("\n\n## Attachments\n")
             for asset in local_assets:
                 rel_path = os.path.relpath(asset, DATA_DIR)
                 f.write(f"- [{os.path.basename(asset)}]({rel_path})\n")
-                
+
     # Create ThongBao object
     tb = ThongBao(
         id=slug,
@@ -292,49 +293,49 @@ def save_announcement(data):
         original_url=data['url'],
         assets=[os.path.basename(a) for a in local_assets]
     )
-    
+
     # Save using Model
     tb.save_to_json(json_path)
     print(f"Saved: {data['title']}")
 
 def main():
     print("Starting CITD Scraper...")
-    
+
     # Loop through pages
     page = 1
     max_pages = 5 # Safety limit for now, user can increase
-    
+
     while page <= max_pages:
         url = LIST_URL
         if page > 1:
             url = f"{LIST_URL}page/{page}/"
-            
+
         print(f"Scraping Page {page}...")
         content = fetch_url(url)
         if not content:
             print("Failed to retrieve page content. Stopping.")
             break
-            
+
         announcements = parse_list_page(content)
         if not announcements:
             print("No announcements found on this page. Stopping.")
             break
-            
+
         for item in announcements:
             # Check duplicate before fetching details
             # Need to generate temp ID/Date from List item if available
             temp_data = {'title': item['title'], 'driver': '', 'url': item['url']}
             if item.get('time_str'):
                  temp_data['date'] = item['time_str']
-            
+
             slug, formatted_date = generate_id_and_date(temp_data)
-            
+
             # Check if exists
             exists, should_update = check_if_exists(slug, formatted_date)
-            
+
             if exists and not should_update:
                 continue
-                
+
             detail_url = item['url']
             detail_content = fetch_url(detail_url)
             if detail_content:
@@ -342,13 +343,13 @@ def main():
                 if detail_data:
                     detail_data['url'] = detail_url
                     save_announcement(detail_data)
-            
+
             # Rate limiting
             time.sleep(1)
-            
+
         page += 1
         time.sleep(2)
-        
+
     print("Scraping completed.")
 
 if __name__ == "__main__":
