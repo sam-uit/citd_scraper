@@ -269,9 +269,9 @@ def save_announcement(data):
     # Save Markdown Content
     with open(md_path, 'w', encoding='utf-8') as f:
         f.write(f"# {data['title']}\n\n")
-        f.write(f"**Author:** {data['author']}\n")
-        f.write(f"**Date:** {data['date']}\n")
-        f.write(f"**Original URL:** {data['url']}\n\n")
+        f.write(f"- **Author:** {data['author']}\n")
+        f.write(f"- **Date:** {data['date']}\n")
+        f.write(f"- **Original URL:** {data['url']}\n\n")
         f.write(data['content'])
         
         if local_assets:
