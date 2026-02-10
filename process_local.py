@@ -4,7 +4,7 @@ import json
 from scraper import parse_list_page, parse_detail_page, save_announcement, check_if_exists, generate_id_and_date
 
 BASE_PATH = "/Users/samdinh/UIT/citd_scraper"
-LIST_FILE = os.path.join(BASE_PATH, "thongbaohocvu.html")
+THONG_BAO_HOC_VU = os.path.join(BASE_PATH, "thongbaohocvu.html")
 THONG_BAO_CHUNG = os.path.join(BASE_PATH, "thongbaochung.html")
 DETAIL_FILE = os.path.join(BASE_PATH, "thongbaocuthe.html")
 
@@ -12,8 +12,8 @@ def process_local():
     print("Processing local files...")
     
     # Simulate List Page
-    if os.path.exists(LIST_FILE):
-        with open(LIST_FILE, 'r', encoding='utf-8') as f:
+    if os.path.exists(THONG_BAO_HOC_VU):
+        with open(THONG_BAO_HOC_VU, 'r', encoding='utf-8') as f:
             content = f.read()
             announcements = parse_list_page(content, is_local=True)
             print(f"Found {len(announcements)} items in list.")
