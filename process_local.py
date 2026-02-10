@@ -4,60 +4,60 @@ import json
 from scraper import parse_list_page, parse_detail_page, save_announcement, check_if_exists, generate_id_and_date
 
 BASE_PATH = "/Users/samdinh/UIT/citd_scraper"
-THONG_BAO_HOC_VU = os.path.join(BASE_PATH, "thongbaohocvu.html")
-THONG_BAO_CHUNG = os.path.join(BASE_PATH, "thongbaochung.html")
+FILES = {
+    "hoc-vu": os.path.join(BASE_PATH, "thongbaohocvu.html"),
+    "chung": os.path.join(BASE_PATH, "thongbaochung.html")
+}
 DETAIL_FILE = os.path.join(BASE_PATH, "thongbaocuthe.html")
 
 def process_local():
     print("Processing local files...")
     
-    # Simulate List Page
-    if os.path.exists(THONG_BAO_HOC_VU):
-        with open(THONG_BAO_HOC_VU, 'r', encoding='utf-8') as f:
-            content = f.read()
-            announcements = parse_list_page(content, is_local=True)
-            print(f"Found {len(announcements)} items in list.")
-            
-            # Since we only have one detail page, we will use it for ALL items 
-            # to populate data for testing UI.
-            # In a real scenario, we would have matched filenames or similar.
-            
-            if os.path.exists(DETAIL_FILE):
-                with open(DETAIL_FILE, 'r', encoding='utf-8') as df:
-                    detail_content = df.read()
-                    
-                    for item in announcements:
-                        # Check duplicate before processing
-                        temp_data = {'title': item['title'], 'driver': '', 'url': item['url']}
-                        if item.get('time_str'):
-                             temp_data['date'] = item['time_str']
-                        
-                        slug, formatted_date = generate_id_and_date(temp_data)
-                        
-                        exists, should_update = check_if_exists(slug, formatted_date)
-                        if exists and not should_update:
-                            continue
+    if not os.path.exists(DETAIL_FILE):
+        print(f"Detail file not found: {DETAIL_FILE}")
+        return
 
-                        # We use the title from the list, but content from the detail file
-                        # We need to preserve the URL from the list for unique ID generation
+    with open(DETAIL_FILE, 'r', encoding='utf-8') as df:
+        detail_content = df.read()
+
+    for cat_key, file_path in FILES.items():
+        print(f"Processing category: {cat_key} from {file_path}")
+        
+        if os.path.exists(file_path):
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                announcements = parse_list_page(content, is_local=True)
+                print(f"Found {len(announcements)} items in {cat_key}.")
+                
+                for item in announcements:
+                    # Check duplicate before processing
+                    temp_data = {'title': item['title'], 'driver': '', 'url': item['url']}
+                    if item.get('time_str'):
+                            temp_data['date'] = item['time_str']
+                    
+                    slug, formatted_date = generate_id_and_date(temp_data)
+                    
+                    # Check if exists in the specific category
+                    exists, should_update = check_if_exists(slug, formatted_date, cat_key)
+                    if exists and not should_update:
+                        continue
+
+                    # We use the title from the list, but content from the detail file
+                    detail_data = parse_detail_page(detail_content, item['url'])
+                    if detail_data:
+                        detail_data['url'] = item['url']
+                        detail_data['title'] = item['title'] 
                         
-                        detail_data = parse_detail_page(detail_content, item['url'])
-                        if detail_data:
-                            # Override title/date/author from list if we want consistency, 
-                            # OR use detail page data. 
+                        # Use Author and Date from LIST page for local simulation
+                        if item.get('author') and item['author'] != "Unknown":
+                            detail_data['author'] = item['author']
                             
-                            detail_data['url'] = item['url']
-                            detail_data['title'] = item['title'] 
-                            
-                            # Critical: Use Author and Date from LIST page for local simulation
-                            # because the single detail file (thongbaocuthe.html) has static info.
-                            if item.get('author') and item['author'] != "Unknown":
-                                detail_data['author'] = item['author']
-                                
-                            if item.get('time_str'):
-                                detail_data['date'] = item['time_str']
-                            
-                            save_announcement(detail_data)
+                        if item.get('time_str'):
+                            detail_data['date'] = item['time_str']
+                        
+                        save_announcement(detail_data, category_key=cat_key)
+        else:
+             print(f"File not found: {file_path}")
                             
     print("Local processing completed.")
 
