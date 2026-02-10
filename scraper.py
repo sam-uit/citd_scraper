@@ -255,7 +255,7 @@ def save_announcement(data):
     slug, formatted_date = generate_id_and_date(data)
     
     # Filenames
-    base_name = f"{formatted_date}_{slug}"
+    base_name = f"{formatted_date}-{slug}"
     json_path = os.path.join(DATA_DIR, f"{base_name}.json")
     md_path = os.path.join(DATA_DIR, f"{base_name}.md")
     
