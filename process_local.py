@@ -38,10 +38,15 @@ def process_local():
                             # Let's mix them: Use list title/date/url, but detail content.
                             
                             detail_data['url'] = item['url']
-                            detail_data['title'] = item['title'] # Use list title to differentiate
-                            # detail_data['date'] = item['time_str'] if item['time_str'] else detail_data['date']
-                            # Let's keep detail date to see if it parses correctly, or list date. 
-                            # The scraper logic prioritizes detail page date if available.
+                            detail_data['title'] = item['title'] 
+                            
+                            # Critical: Use Author and Date from LIST page for local simulation
+                            # because the single detail file (thongbaocuthe.html) has static info.
+                            if item.get('author') and item['author'] != "Unknown":
+                                detail_data['author'] = item['author']
+                                
+                            if item.get('time_str'):
+                                detail_data['date'] = item['time_str']
                             
                             save_announcement(detail_data)
                             
