@@ -13,7 +13,7 @@ from models.ThongBao import ThongBao
 
 # Configuration
 BASE_URL = "https://www.citd.edu.vn"
-LIST_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-hoc-vu/"
+THONG_BAO_HOC_VU_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-hoc-vu/"
 THONG_BAO_CHUNG_URL = "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-chung/"
 DATA_DIR = "thongbao"
 ASSETS_DIR = os.path.join(DATA_DIR, "assets")
@@ -306,9 +306,9 @@ def main():
     max_pages = 5 # Safety limit for now, user can increase
 
     while page <= max_pages:
-        url = LIST_URL
+        url = THONG_BAO_HOC_VU_URL
         if page > 1:
-            url = f"{LIST_URL}page/{page}/"
+            url = f"{THONG_BAO_HOC_VU_URL}page/{page}/"
 
         print(f"Scraping Page {page}...")
         content = fetch_url(url)
