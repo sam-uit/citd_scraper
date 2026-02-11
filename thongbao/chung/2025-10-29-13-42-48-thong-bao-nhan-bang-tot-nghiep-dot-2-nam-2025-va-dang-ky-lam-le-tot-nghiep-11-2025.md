@@ -37,3 +37,6 @@ Phòng Đào tạo CITD thông báo kế hoạch làm lễ tốt nghiệp tháng
 **Địa điểm làm lễ:**Hội trường A – Tòa nhà A – Trường Đại học Công nghệ Thông tin (Đường Hàn Thuyên, Khu phố 34, P. Linh Xuân, TP. Hồ Chí Minh)
 
 Chúc mừng các bạn đã đạt được bằng tốt nghiệp và hy vọng các bạn sẽ tiếp tục gặt hái thành công trong tương lai!
+
+## Attachments
+- [Danh-sach-nhan-bang-tot-nghiep-Dot-2-Nam-2025-2.pdf](https://www.citd.vn/wp-content/uploads/2025/10/Danh-sach-nhan-bang-tot-nghiep-Dot-2-Nam-2025-2.pdf) (Online)

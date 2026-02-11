@@ -13,7 +13,7 @@
 * Trước khi đến trường, sinh viên truy cập vào cổng: [student.citd.edu.vn/exams](https://student.citd.edu.vn/exams)
 * Kiểm tra cột “Danh sách ký tên” để xem STT tương ứng với môn đồ án/ tiểu luận của mình.
 
-[![](https://www.citd.edu.vn/wp-content/uploads/2026/01/Screenshot-2026-01-10-at-14.15.56-1024x239.png)](https://www.citd.edu.vn/wp-content/uploads/2026/01/Screenshot-2026-01-10-at-14.15.56.png)
+[![](../../assets/images/Screenshot-2026-01-10-at-14.15.56-1024x239.png)](https://www.citd.edu.vn/wp-content/uploads/2026/01/Screenshot-2026-01-10-at-14.15.56.png)
 
 ***Lưu ý:*** Mỗi “Danh sách ký tên” sẽ có một STT duy nhất. Sinh viên cần ghi nhớ số này để báo cho cán bộ hỗ trợ tại bàn ký tên.
 
@@ -52,4 +52,4 @@
 
 Trung tâm sẽ không giải quyết mọi khiếu nại nếu sinh viên không thực hiện đúng theo thông báo này.
 
-[![](https://www.citd.edu.vn/wp-content/uploads/2026/01/Gemini_Generated_Image_rl042nrl042nrl04-1024x559.png)](https://www.citd.edu.vn/wp-content/uploads/2026/01/Gemini_Generated_Image_rl042nrl042nrl04.png)
+[![](../../assets/images/Gemini_Generated_Image_rl042nrl042nrl04-1024x559.png)](https://www.citd.edu.vn/wp-content/uploads/2026/01/Gemini_Generated_Image_rl042nrl042nrl04.png)

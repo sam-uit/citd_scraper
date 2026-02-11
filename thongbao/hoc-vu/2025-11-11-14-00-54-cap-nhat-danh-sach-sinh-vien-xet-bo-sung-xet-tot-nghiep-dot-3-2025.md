@@ -17,3 +17,7 @@ Phòng đào tạo Trung tâm cập nhật danh sách sinh viên dự kiến đ�
 Trân trọng./
 
 [DANH SÁCH SINH VIÊN DỰ KIẾN ĐỦ ĐIỀU KIỆN XÉT TN – FULL](https://www.citd.edu.vn/wp-content/uploads/2025/11/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-FULL-1.pdf)
+
+## Attachments
+- [DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-FULL-1.pdf](../../assets/documents/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-FULL-1.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2025/11/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-FULL-1.pdf)
+- [Danh-sach-da-nop-ho-so-le-phi-xet-tot-nghiep-dot-3-nam-2025-1.pdf](../../assets/documents/Danh-sach-da-nop-ho-so-le-phi-xet-tot-nghiep-dot-3-nam-2025-1.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2025/11/Danh-sach-da-nop-ho-so-le-phi-xet-tot-nghiep-dot-3-nam-2025-1.pdf)

@@ -34,10 +34,23 @@ To **force refresh** all announcements (ignore local database):
 uv run python scraper.py --pull
 ```
 
+To **download document attachments** (PDF, DOC, etc.):
+```bash
+uv run python scraper.py --download
+```
+*Note: Images are always downloaded automatically.*
+
 To run in **headless mode** (experimental, may be blocked by Cloudflare):
 ```bash
 uv run python scraper.py --headless
 ```
+
+### 📂 Directory Structure
+Scraped data is organized in the `thongbao/` directory:
+- `thongbao.json`: Centralized index database.
+- `thongbao/assets/images/`: Downloaded images.
+- `thongbao/assets/documents/`: Downloaded documents (if `--download` is used).
+- `thongbao/[category]/`: Markdown and JSON metadata for each announcement.
 
 *Note: If the scraper encounters Cloudflare protection (403 Forbidden), it will attempt to use `curl_cffi` to bypass it. If that fails, you can generate data from local HTML files (if available) using:*
 

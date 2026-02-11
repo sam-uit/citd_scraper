@@ -11,3 +11,6 @@ Phòng đào tạo Trung tâm Phát triển CNTT thông báo kế hoạch đào 
 Phòng đào tạo thông báo đến các anh chị sinh viên kiểm tra cập nhật đúng môn học của lớp mình để tránh sai sót, nhầm lẫn. Trân trọng
 
 [40-TB-TTPTCNTT\_Kế hoạch đào tạo HKII](https://www.citd.edu.vn/wp-content/uploads/2026/02/40-TB-TTPTCNTT_Ke-hoach-dao-tao-HKII.pdf)
+
+## Attachments
+- [40-TB-TTPTCNTT_Ke-hoach-dao-tao-HKII.pdf](../../assets/documents/40-TB-TTPTCNTT_Ke-hoach-dao-tao-HKII.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/02/40-TB-TTPTCNTT_Ke-hoach-dao-tao-HKII.pdf)

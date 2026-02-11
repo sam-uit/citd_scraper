@@ -30,11 +30,14 @@ CATEGORIES = {
 
 DATA_DIR = "thongbao"
 ASSETS_DIR = os.path.join(DATA_DIR, "assets")
+ASSETS_IMAGES_DIR = os.path.join(ASSETS_DIR, "images")
+ASSETS_DOCS_DIR = os.path.join(ASSETS_DIR, "documents")
 DB_FILE = os.path.join(DATA_DIR, "thongbao.json")
 
 # Create directories
 os.makedirs(DATA_DIR, exist_ok=True)
-os.makedirs(ASSETS_DIR, exist_ok=True)
+os.makedirs(ASSETS_IMAGES_DIR, exist_ok=True)
+os.makedirs(ASSETS_DOCS_DIR, exist_ok=True)
 for cat in CATEGORIES.values():
     os.makedirs(os.path.join(DATA_DIR, cat["dir"]), exist_ok=True)
 
@@ -97,48 +100,54 @@ def extract_id_from_url(url):
     path = urlparse(url).path
     return path.strip('/').split('/')[-1]
 
-def download_asset(url):
+def download_resource(url, save_dir):
     try:
-        # Use DrissionPage download
         if not browser:
             return None
             
-        filename = os.path.basename(urlparse(url).path)
+        # Extract filename
+        path = urlparse(url).path
+        filename = os.path.basename(path)
         if not filename:
-            filename = f"asset_{hashlib.md5(url.encode()).hexdigest()}"
+            filename = f"resource_{hashlib.md5(url.encode()).hexdigest()}"
             
-        # Check if already exists
-        filepath = os.path.join(ASSETS_DIR, filename)
+        # Check if exists
+        filepath = os.path.join(save_dir, filename)
         if os.path.exists(filepath):
             return filepath
 
-        print(f"Downloading asset: {url}")
-        # DrissionPage download logic
-        # For simplicity, we can use the requests session from DrissionPage if exposed, 
-        # or just navigate to it if it triggers download, but for files usually we want content.
-        # page.download() is for clicking download buttons.
-        # Using page.download_file() if available or requests with browser cookies.
+        print(f"Downloading: {url} ...")
         
-        # Fallback: using browser.download (if file)
-        # Or simpler: access .content via fetch logic if it's small?
-        # Let's try to 'get' it and save bytes.
+        # Use DrissionPage to download
+        # Easiest way: browser.download(url, save_dir, filename)
+        # But for images, we might want to just get bytes if it's not a forced download link.
         
-        # Actually DrissionPage allows downloading functionality.
-        # browser.download(url, ASSETS_DIR, filename)
+        # Method 1: requests with browser cookies (most robust for images)
+        import requests
         
-        # Let's use a simple approach for now:
-        # Navigate to it? No, that changes page.
-        # Use browser.download_set path then get?
+        # Correct DrissionPage usage based on debug:
+        # browser.cookies() returns CookiesList which has as_dict() method.
+        try:
+             cookies = browser.cookies().as_dict()
+        except Exception as e:
+             print(f"Cookie error: {e}")
+             cookies = {}
+
+        headers = {
+            "User-Agent": browser.user_agent,
+            "Referer": BASE_URL
+        }
         
-        # Revert to curl_cffi or requests using cookies from browser? 
-        # DrissionPage cookies can be exported.
-        
-        # For now, let's skip complex asset download refactor and focus on content. 
-        # The previous version used curl_cffi. Let's try to keep it simple or just return None for now 
-        # to ensure main scraper works, then fix assets if broken.
-        pass 
+        response = requests.get(url, headers=headers, cookies=cookies, timeout=30)
+        if response.status_code == 200:
+            with open(filepath, 'wb') as f:
+                f.write(response.content)
+            return filepath
+        else:
+            print(f"Failed to download {url}: Status {response.status_code}")
+            
     except Exception as e:
-        print(f"Error downloading asset {url}: {e}")
+        print(f"Error downloading {url}: {e}")
     return None
 
 
@@ -209,8 +218,38 @@ def parse_detail_page(content, url):
 
         # Content
         content_divs = tree.xpath('//div[contains(@class, "tdb_single_content")]//div[contains(@class, "tdb-block-inner")]')
+        local_assets_map = {}
+        
         if content_divs:
             content_div = content_divs[0]
+
+            # 1. Process Images
+            # Find all img tags, download content, and replace src with local relative path
+            for img in content_div.xpath('.//img'):
+                src = img.get('src')
+                if src:
+                    # Fix relative URLs
+                    if not src.startswith('http'):
+                        src = urljoin(BASE_URL, src)
+                        
+                    # Download image
+                    local_path = download_resource(src, ASSETS_IMAGES_DIR)
+                    if local_path:
+                        # Compute relative path for Markdown (thongbao/hoc-vu/.. -> thongbao/assets/images/..)
+                        # We save MD in thongbao/hoc-vu/. So rel path is ../../assets/images/filename
+                        # Actually simpler: just use relative path from the DATA_DIR root if we view from there?
+                        # But MD is viewed relative to MD file.
+                        # MD is in `thongbao/category/`. Assets in `thongbao/assets/images/`.
+                        # So relative path is `../../assets/images/filename`.
+                        
+                        filename = os.path.basename(local_path)
+                        rel_path = f"../../assets/images/{filename}"
+                        img.set('src', rel_path)
+                        # Also replace srcset if exists to prevent browser loading original
+                        if img.get('srcset'):
+                            del img.attrib['srcset']
+                        
+                        local_assets_map[src] = filename
 
             # Remove redundant "Download" buttons from wp-block-file
             for btn in content_div.xpath('.//a[contains(@class, "wp-block-file__button")]'):
@@ -224,8 +263,9 @@ def parse_detail_page(content, url):
             content_html = html.tostring(content_div, encoding='unicode')
             content_text = md(content_html, heading_style="ATX").strip()
 
-            # Extract assets
-            asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls") or contains(@href, ".zip") or contains(@href, ".rar")]/@href')
+            # Extract assets (Docs)
+            # Find all links to files
+            asset_links = content_div.xpath('.//a[contains(@href, ".pdf") or contains(@href, ".doc") or contains(@href, ".xls") or contains(@href, ".zip") or contains(@href, ".rar") or contains(@href, ".ppt")]/@href')
             asset_links = list(set(asset_links))
         else:
             content_text = ""
@@ -364,7 +404,7 @@ def check_if_exists(slug, formatted_date, category_key, db, force_pull=False):
         print(f"Error checking duplicate for {slug}: {e}")
         return False, True
 
-def save_announcement(data, category_key="hoc-vu", db=None):
+def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False):
     # ID from URL or title hash
     if not data or not data.get('title'):
         return
@@ -379,12 +419,19 @@ def save_announcement(data, category_key="hoc-vu", db=None):
     json_path = os.path.join(save_dir, f"{base_name}.json")
     md_path = os.path.join(save_dir, f"{base_name}.md")
 
-    # Download assets
+    # Handle Assets
     local_assets = []
-    for asset_url in data.get('asset_links', []):
-        local_path = download_asset(asset_url)
-        if local_path:
-            local_assets.append(local_path)
+    
+    # Check if download flag is on for documents
+    if download_docs:
+        for asset_url in data.get('asset_links', []):
+            # Fix relative URLs if needed
+            if not asset_url.startswith('http'):
+                asset_url = urljoin(BASE_URL, asset_url)
+                
+            local_path = download_resource(asset_url, ASSETS_DOCS_DIR)
+            if local_path:
+                local_assets.append(local_path)
 
     # Save Markdown Content
     with open(md_path, 'w', encoding='utf-8') as f:
@@ -394,11 +441,34 @@ def save_announcement(data, category_key="hoc-vu", db=None):
         f.write(f"- **Original URL:** {data['url']}\n\n")
         f.write(data['content'])
 
-        if local_assets:
+        # Attachments section
+        # Logic: 
+        # 1. If download_docs is True and file downloaded -> Link to local file
+        # 2. If download_docs is False -> Link to original URL
+        # 3. Or list both?
+        
+        # Current logic: List original links, and if available, list local links?
+        # Standard: Just list downloadable links.
+        
+        if data.get('asset_links'):
             f.write("\n\n## Attachments\n")
-            for asset in local_assets:
-                rel_path = os.path.relpath(asset, save_dir)
-                f.write(f"- [{os.path.basename(asset)}]({rel_path})\n")
+            for asset_url in data.get('asset_links'):
+                 # Fix relative URLs if needed
+                if not asset_url.startswith('http'):
+                    asset_url = urljoin(BASE_URL, asset_url)
+                
+                filename = os.path.basename(urlparse(asset_url).path)
+                
+                # Check if we have it locally (either just downloaded or existed)
+                local_path = os.path.join(ASSETS_DOCS_DIR, filename)
+                
+                if download_docs and os.path.exists(local_path):
+                     # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
+                     # ../../assets/documents/filename
+                     rel_path = f"../../assets/documents/{filename}"
+                     f.write(f"- [{filename}]({rel_path}) (Local) | [Original]({asset_url})\n")
+                else:
+                     f.write(f"- [{filename}]({asset_url}) (Online)\n")
 
     # Create ThongBao object
     tb = ThongBao(
@@ -433,6 +503,7 @@ def main():
     parser.add_argument("--all", action="store_true", help="Scrape all pages (default: page 1 only)")
     parser.add_argument("--pull", action="store_true", help="Force refresh all announcements")
     parser.add_argument("--headless", action="store_true", help="Run in headless mode (no UI)")
+    parser.add_argument("--download", action="store_true", help="Download document attachments (PDF, DOC, etc.)")
     args = parser.parse_args()
 
     print("Starting CITD Scraper...")
@@ -452,6 +523,9 @@ def main():
     else:
         print("Mode: Scraping first page ONLY.")
         max_pages = 1
+
+    if args.download:
+        print("Mode: Downloading document attachments enabled.")
 
     for cat_key, cat_info in CATEGORIES.items():
         print(f"Scraping Category: {cat_info['name']}...")
@@ -492,7 +566,7 @@ def main():
                     detail_data = parse_detail_page(detail_content, detail_url)
                     if detail_data:
                         detail_data['url'] = detail_url
-                        save_announcement(detail_data, category_key=cat_key, db=db)
+                        save_announcement(detail_data, category_key=cat_key, db=db, download_docs=args.download)
 
                 # Rate limiting
                 time.sleep(1)

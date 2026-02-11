@@ -11,3 +11,6 @@ Phòng Đào tạo Trung tâm thông báo về việc điều chỉnh thời gia
 Đề nghị anh chị sinh viên thực hiện theo đúng các mốc thời gian đã điều chỉnh. Trường hợp thắc mắc vui lòng liên hệ Phòng đào tạo để được hỗ trợ.
 
 [32-TB-TTPTCNTT-ĐT](https://www.citd.edu.vn/wp-content/uploads/2026/01/32-TB-TTPTCNTT-DT-1.pdf)
+
+## Attachments
+- [32-TB-TTPTCNTT-DT-1.pdf](../../assets/documents/32-TB-TTPTCNTT-DT-1.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/32-TB-TTPTCNTT-DT-1.pdf)

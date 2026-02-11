@@ -20,3 +20,6 @@ Phòng Đào tạo CITD thông báo đến Sinh viên về lịch thi – danh s
 * Trong các danh sách dự thi trên, sinh viên nào có phần **Ghi chú** là **HP** hoặc **Nợ HP**, sinh viên đó cần in biên lai đóng học phí và mang theo đến **phòng Hội đồng** *(sẽ thông báo sau)* để nhận **giấy xác nhận đã đóng học phí,** sau đó trình cán bộ coi thi để ghi chú lại và cho vào phòng thi ***(Nếu không có giấy xác nhận đã đóng học phí đúng quy định sẽ không được vào phòng thi).***
 
 Trung tâm đề nghị Sinh viên kiểm tra và phản hồi thắc mắc (nếu có) qua email phongdaotao.citd@uit.edu.vn (dùng email có dạng mssv@ms.uit.edu.vn để gửi hỗ trợ) từ **ngày ra thông báo đến 23g00 ngày 12/01/2026**
+
+## Attachments
+- [DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf](../../assets/documents/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf)

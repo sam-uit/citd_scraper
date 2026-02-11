@@ -13,3 +13,6 @@ Trường hợp phát hiện thông tin chưa chính xác, anh/chị sinh viên 
 Trân trọng
 
 [DANH SÁCH SINH VIÊN DỰ KIẾN TỐT NGHIỆP](https://www.citd.edu.vn/wp-content/uploads/2026/02/DANH-SACH-SINH-VIEN-DU-KIEN-TOT-NGHIEP.pdf)
+
+## Attachments
+- [DANH-SACH-SINH-VIEN-DU-KIEN-TOT-NGHIEP.pdf](../../assets/documents/DANH-SACH-SINH-VIEN-DU-KIEN-TOT-NGHIEP.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/02/DANH-SACH-SINH-VIEN-DU-KIEN-TOT-NGHIEP.pdf)

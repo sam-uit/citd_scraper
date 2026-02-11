@@ -14,7 +14,7 @@ SV xem kế hoạch và thời khoá biểu học kỳ 2 (TKB), năm học 2025 
 
 PĐT-CITD sẽ chuẩn bị sẵn dữ liệu TKB trên hệ thống: <https://student.citd.edu.vn/>. Sinh viên đăng nhập và thực hiện **Xác nhận ĐKHP** theo khung giờ quy định cho từng khóa:
 
-[![](https://www.citd.edu.vn/wp-content/uploads/2026/02/Screenshot-2026-02-09-at-11.14.52.png)](https://www.citd.edu.vn/wp-content/uploads/2026/02/Screenshot-2026-02-09-at-11.14.52.png)
+[![](../../assets/images/Screenshot-2026-02-09-at-11.14.52.png)](https://www.citd.edu.vn/wp-content/uploads/2026/02/Screenshot-2026-02-09-at-11.14.52.png)
 
 ***Lưu ý:***
 
@@ -39,3 +39,6 @@ Lịch học (thời gian, giảng viên,…) vẫn có thể thay đổi/ đi�
 Trong quá trình thực hiện, nếu có thắc mắc hoặc cần hỗ trợ Sinh viên có thể liên hệ email phongdaotao.citd@uit.edu.vn ***(sử dụng email có dạng mssv@ms.uit.edu.vn do Trung tâm cung cấp)*** để được hỗ trợ.
 
 [[HUONG DAN] Xac nhan Dang ky hoc phan cho SV he DTTX](https://www.citd.edu.vn/wp-content/uploads/2026/02/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-he-DTTX.pdf)
+
+## Attachments
+- [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-he-DTTX.pdf](../../assets/documents/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-he-DTTX.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/02/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-he-DTTX.pdf)
