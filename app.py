@@ -4,26 +4,27 @@ import os
 import json
 import pandas as pd
 from datetime import datetime
-
-# Configuration
-DATA_DIR = "thongbao"
-ASSETS_DOCS_DIR = os.path.join(DATA_DIR, "assets", "documents")
-CATEGORIES = {
-    "hoc-vu": "Thông báo học vụ",
-    "chung": "Thông báo chung"
-}
+from settings import settings
 
 st.set_page_config(page_title="CITD Announcements", layout="wide")
 
 
 def load_data():
     data = []
-    if not os.path.exists(DATA_DIR):
-        os.makedirs(DATA_DIR)
+    if not os.path.exists(settings.DATA_DIR):
+        os.makedirs(settings.DATA_DIR)
     
     # Iterate through category subdirectories
-    for cat_dir, cat_name in CATEGORIES.items():
-        dir_path = os.path.join(DATA_DIR, cat_dir)
+    for cat_dir, cat_info in settings.CATEGORIES.items():
+        # settings.CATEGORIES structure: {"hoc-vu": {"url": ..., "name": ..., "dir": ...}}
+        # But wait, original CATEGORIES in app.py was simple dict: {"hoc-vu": "Thông báo học vụ", ...}
+        # In settings.py it is complex dict.
+        # Need to adapt logic.
+        
+        dir_name = cat_info['dir']
+        cat_name = cat_info['name']
+        
+        dir_path = os.path.join(settings.DATA_DIR, dir_name)
         if not os.path.exists(dir_path):
             continue
             
@@ -34,7 +35,7 @@ def load_data():
                     with open(filepath, 'r', encoding='utf-8') as f:
                         item = json.load(f)
                         item['filename'] = filename # Store filename for updates
-                        item['category_key'] = cat_dir # Store category key
+                        item['category_key'] = cat_dir # Store category key (e.g., 'hoc-vu')
                         item['category_name'] = cat_name
                          # Ensure date is parsed for sorting
                         # Format: yyyy-mm-dd-hh-mm-ss
@@ -55,7 +56,14 @@ def save_tags(item, new_tags):
         st.error("Cannot save tags: Filename or Category missing.")
         return
         
-    filepath = os.path.join(DATA_DIR, item['category_key'], item['filename'])
+    # item['category_key'] is 'hoc-vu' or 'chung'
+    # Need to get dir from settings
+    cat_info = settings.CATEGORIES.get(item['category_key'])
+    if not cat_info:
+        st.error(f"Category {item['category_key']} not found in settings.")
+        return
+        
+    filepath = os.path.join(settings.DATA_DIR, cat_info['dir'], item['filename'])
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -86,7 +94,9 @@ def main():
     st.sidebar.header("Filters")
     
     # Category Filter
-    cat_options = ["All"] + list(CATEGORIES.values())
+    # Get names from settings
+    cat_names = [info['name'] for info in settings.CATEGORIES.values()]
+    cat_options = ["All"] + cat_names
     selected_cat = st.sidebar.selectbox("Category", cat_options)
 
     # Tag Filter
@@ -135,7 +145,8 @@ def main():
             date_display = item['date_obj'].strftime("%d/%m/%Y")
             
             # Card-like button
-            cat_label = "📚" if item['category_key'] == 'hoc-vu' else "🔔"
+            # Simple heuristic for icon since we don't have explicit type without lookup
+            cat_label = "📚" if "học vụ" in item['category_name'].lower() else "🔔"
             label = f"**{date_display}** | {cat_label} {item['category_name']}\n\n{item['title']}"
             if st.button(label, key=item['id'], use_container_width=True):
                 st.session_state.selected_item = item
@@ -179,13 +190,17 @@ def main():
             # content_md_path in json is basename.
             # So we need to join DATA_DIR, cat_key, and basename.
             
-            md_path = os.path.join(DATA_DIR, item['category_key'], item['content_md_path'])
-            if os.path.exists(md_path):
-                with open(md_path, 'r', encoding='utf-8') as f:
-                    md_content = f.read()
-                    st.markdown(md_content)
+            cat_info = settings.CATEGORIES.get(item['category_key'])
+            if cat_info:
+                 md_path = os.path.join(settings.DATA_DIR, cat_info['dir'], item['content_md_path'])
+                 if os.path.exists(md_path):
+                     with open(md_path, 'r', encoding='utf-8') as f:
+                         md_content = f.read()
+                         st.markdown(md_content)
+                 else:
+                     st.error(f"Content file not found at {md_path}")
             else:
-                st.error(f"Content file not found at {md_path}")
+                 st.error(f"Category info missing for {item['category_key']}")
                 
             # Assets
             if item.get('assets'):
@@ -194,7 +209,7 @@ def main():
                     # Assets are likely still in DATA_DIR/assets or moved?
                     # Scraper says: ASSETS_DIR = DATA_DIR/assets
                     # But metadata stores basename.
-                    asset_path = os.path.join(ASSETS_DOCS_DIR, asset)
+                    asset_path = os.path.join(settings.ASSETS_DOCS_DIR, asset)
                     # In streamlit, we can provide download button
                     if os.path.exists(asset_path):
                         with open(asset_path, "rb") as f:
