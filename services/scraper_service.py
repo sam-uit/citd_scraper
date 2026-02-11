@@ -12,40 +12,20 @@ from markdownify import markdownify as md
 from models.ThongBao import ThongBao
 from utils.helpers import clean_text, parse_date, extract_id_from_url, generate_id_and_date
 from utils.network import download_resource, fetch_url
-
-# Configuration
-BASE_URL = "https://www.citd.edu.vn"
-CATEGORIES = {
-    "hoc-vu": {
-        "url": "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-hoc-vu/",
-        "name": "Thông báo học vụ",
-        "dir": "hoc-vu"
-    },
-    "chung": {
-        "url": "https://www.citd.edu.vn/chuyen-muc/dao-tao/thong-bao-chung/",
-        "name": "Thông báo chung",
-        "dir": "chung"
-    }
-}
-
-DATA_DIR = "thongbao"
-ASSETS_DIR = os.path.join(DATA_DIR, "assets")
-ASSETS_IMAGES_DIR = os.path.join(ASSETS_DIR, "images")
-ASSETS_DOCS_DIR = os.path.join(ASSETS_DIR, "documents")
-DB_FILE = os.path.join(DATA_DIR, "thongbao.json")
+from settings import settings
 
 # Create directories
-os.makedirs(DATA_DIR, exist_ok=True)
-os.makedirs(ASSETS_IMAGES_DIR, exist_ok=True)
-os.makedirs(ASSETS_DOCS_DIR, exist_ok=True)
-for cat in CATEGORIES.values():
-    os.makedirs(os.path.join(DATA_DIR, cat["dir"]), exist_ok=True)
+os.makedirs(settings.DATA_DIR, exist_ok=True)
+os.makedirs(settings.ASSETS_IMAGES_DIR, exist_ok=True)
+os.makedirs(settings.ASSETS_DOCS_DIR, exist_ok=True)
+for cat in settings.CATEGORIES.values():
+    os.makedirs(os.path.join(settings.DATA_DIR, cat["dir"]), exist_ok=True)
 
 # Database Management
 def load_db():
-    if os.path.exists(DB_FILE):
+    if os.path.exists(settings.DB_FILE):
         try:
-            with open(DB_FILE, 'r', encoding='utf-8') as f:
+            with open(settings.DB_FILE, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except Exception as e:
             print(f"Error loading DB: {e}")
@@ -53,7 +33,7 @@ def load_db():
 
 def save_db(db):
     try:
-        with open(DB_FILE, 'w', encoding='utf-8') as f:
+        with open(settings.DB_FILE, 'w', encoding='utf-8') as f:
             json.dump(db, f, ensure_ascii=False, indent=4)
     except Exception as e:
         print(f"Error saving DB: {e}")
@@ -162,10 +142,10 @@ def parse_detail_page(content, url, browser):
                 if src:
                     # Fix relative URLs
                     if not src.startswith('http'):
-                        src = urljoin(BASE_URL, src)
+                        src = urljoin(settings.BASE_URL, src)
                         
                     # Download image
-                    local_path = download_resource(src, ASSETS_IMAGES_DIR, browser)
+                    local_path = download_resource(src, settings.ASSETS_IMAGES_DIR, browser)
                     if local_path:
                         # Compute relative path for Markdown (thongbao/hoc-vu/.. -> thongbao/assets/images/..)
                         # We save MD in thongbao/hoc-vu/. So rel path is ../../assets/images/filename
@@ -247,7 +227,7 @@ def check_if_exists(slug, formatted_date, category_key, db, force_pull=False):
             return True, True
 
     # 2. Fallback: Check file system (for first run or out-of-sync)
-    cat_dir = os.path.join(DATA_DIR, CATEGORIES[category_key]['dir'])
+    cat_dir = os.path.join(settings.DATA_DIR, settings.CATEGORIES[category_key]['dir'])
     try:
         if not os.path.exists(cat_dir):
             return False, True
@@ -295,8 +275,8 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
 
     slug, formatted_date = generate_id_and_date(data)
 
-    cat_info = CATEGORIES.get(category_key, CATEGORIES["hoc-vu"])
-    save_dir = os.path.join(DATA_DIR, cat_info["dir"])
+    cat_info = settings.CATEGORIES.get(category_key, settings.CATEGORIES["hoc-vu"])
+    save_dir = os.path.join(settings.DATA_DIR, cat_info["dir"])
 
     # Filenames
     base_name = f"{formatted_date}-{slug}"
@@ -311,9 +291,9 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
         for asset_url in data.get('asset_links', []):
             # Fix relative URLs if needed
             if not asset_url.startswith('http'):
-                asset_url = urljoin(BASE_URL, asset_url)
+                asset_url = urljoin(settings.BASE_URL, asset_url)
                 
-            local_path = download_resource(asset_url, ASSETS_DOCS_DIR, browser)
+            local_path = download_resource(asset_url, settings.ASSETS_DOCS_DIR, browser)
             if local_path:
                 local_assets.append(local_path)
 
@@ -331,12 +311,12 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
                 for asset_url in data.get('asset_links'):
                      # Fix relative URLs if needed
                     if not asset_url.startswith('http'):
-                        asset_url = urljoin(BASE_URL, asset_url)
+                        asset_url = urljoin(settings.BASE_URL, asset_url)
                     
                     filename = os.path.basename(urlparse(asset_url).path)
                     
                     # Check if we have it locally (either just downloaded or existed)
-                    local_path = os.path.join(ASSETS_DOCS_DIR, filename)
+                    local_path = os.path.join(settings.ASSETS_DOCS_DIR, filename)
                     
                     if download_docs and os.path.exists(local_path):
                          # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
@@ -375,24 +355,14 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
         
     print(f"Saved to {cat_info['dir']}: {data['title']}")
 
-def main():
-    parser = argparse.ArgumentParser(description="Scrape CITD announcements.")
-    parser.add_argument("--all", action="store_true", help="Scrape all pages (default: page 1 only)")
-    parser.add_argument("--pull", action="store_true", help="Force refresh all announcements")
-    parser.add_argument("--headless", action="store_true", help="Run in headless mode (no UI)")
-    parser.add_argument("--download", action="store_true", help="Download document attachments (PDF, DOC, etc.)")
-    parser.add_argument("-p", "--pages", type=int, default=1, help="Number of pages to scrape (default: 1)")
-    parser.add_argument("--no-md", action="store_true", help="Skip Markdown file generation")
-    parser.add_argument("--regenerate", action="store_true", help="Regenerate Markdown files from JSON")
-    args = parser.parse_args()
-
+def run_scraper(args):
     print("Starting CITD Scraper...")
 
     if args.regenerate:
         print("Mode: Regenerating Markdown files...")
         # Load all JSONs and regenerate MD
-        for cat_key, cat_info in CATEGORIES.items():
-            cat_dir = os.path.join(DATA_DIR, cat_info['dir'])
+        for cat_key, cat_info in settings.CATEGORIES.items():
+            cat_dir = os.path.join(settings.DATA_DIR, cat_info['dir'])
             if not os.path.exists(cat_dir):
                 continue
                 
@@ -484,7 +454,7 @@ def main():
     if args.no_md:
         print("Mode: No Markdown generation (saving JSON only).")
 
-    for cat_key, cat_info in CATEGORIES.items():
+    for cat_key, cat_info in settings.CATEGORIES.items():
         print(f"Scraping Category: {cat_info['name']}...")
         page = 1
         while page <= max_pages:
@@ -538,6 +508,3 @@ def main():
     
     if browser:
         browser.quit()
-
-if __name__ == "__main__":
-    main()
