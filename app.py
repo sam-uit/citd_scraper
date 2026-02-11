@@ -151,6 +151,7 @@ def main():
             label = f"{item['title']}\n\n**{date_display}** | {cat_label} {item['category_name']}"
             if st.button(label, key=item['id'], use_container_width=True):
                 st.session_state.selected_item = item
+            st.divider()
 
     with col2:
         if st.session_state.selected_item:
