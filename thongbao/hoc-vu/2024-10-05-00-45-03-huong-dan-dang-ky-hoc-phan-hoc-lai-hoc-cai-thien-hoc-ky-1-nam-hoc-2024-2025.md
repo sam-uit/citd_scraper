@@ -11,3 +11,7 @@ Thực hiện Thông báo về việc Đăng ký học phần học lại, học
 ***Lưu ý:*** Trung tâm chỉ tổ chức nhận đăng ký học lại, học cải thiện học kỳ 1, năm học 2024-2025 trong khoảng thời gian trên, **sau thời gian này** sẽ không nhận các đăng ký học lại, học cải thiện nữa **(SV có nhu cầu sẽ đăng ký vào học kỳ tiếp theo của năm học)**.
 
 [HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2](https://www.citd.vn/wp-content/uploads/2024/10/HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf)
+
+## Attachments
+
+- [HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf](https://www.citd.vn/wp-content/uploads/2024/10/HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf) (Online)

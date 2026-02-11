@@ -18,3 +18,7 @@ Phòng Đào tạo Trung tâm Phát triển Công nghệ Thông tin (PĐT-CITD) 
 * Danh sách giảng viên và đề tài chỉ là gợi ý.
 
 Trân trọng ./.
+
+## Attachments
+
+- [Danh-sach-GV-ho-tro-thuc-hien-do-anTN-Khoa-luan-TN.xlsx](https://www.citd.vn/wp-content/uploads/2025/10/Danh-sach-GV-ho-tro-thuc-hien-do-anTN-Khoa-luan-TN.xlsx) (Online)

@@ -22,4 +22,5 @@ Phòng Đào tạo CITD thông báo đến Sinh viên về lịch thi – danh s
 Trung tâm đề nghị Sinh viên kiểm tra và phản hồi thắc mắc (nếu có) qua email phongdaotao.citd@uit.edu.vn (dùng email có dạng mssv@ms.uit.edu.vn để gửi hỗ trợ) từ **ngày ra thông báo đến 23g00 ngày 12/01/2026**
 
 ## Attachments
-- [DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf](../../assets/documents/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf)
+
+- [DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf](../assets/documents/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/DANH-SACH-LICH-THI-CHINH-THUC-HK1-2025-2026-2.pdf)

@@ -32,3 +32,8 @@ Trân trọng
 
 
 [DANG-KY-DO-AN-1](https://www.citd.vn/wp-content/uploads/2024/07/DANG-KY-DO-AN-1.xls)
+
+## Attachments
+
+- [DANG-KY-DO-AN-1.xls](https://www.citd.vn/wp-content/uploads/2024/07/DANG-KY-DO-AN-1.xls) (Online)
+- [DANH-SACH-GIANG-VIEN-HD-DO-AN-1.xlsx](https://www.citd.vn/wp-content/uploads/2024/07/DANH-SACH-GIANG-VIEN-HD-DO-AN-1.xlsx) (Online)

@@ -26,3 +26,9 @@ Căn cứ vào kế hoạch dự kiến thực hiện Khóa Luận Tốt Nghiệ
 * **ZaloOA**: <https://zalo.me/trungtamcitd>
 
 **Trân trọng ./.**
+
+## Attachments
+
+- [Mau_DangKyKhoaLuanTotNghiep.doc](https://www.citd.vn/wp-content/uploads/2025/06/Mau_DangKyKhoaLuanTotNghiep.doc) (Online)
+- [mau_de_cuong_chi_tiet-1.docx](https://www.citd.vn/wp-content/uploads/2025/06/mau_de_cuong_chi_tiet-1.docx) (Online)
+- [DANH-SACH-GIANG-VIEN-HD-2.xlsx](https://www.citd.vn/wp-content/uploads/2025/06/DANH-SACH-GIANG-VIEN-HD-2.xlsx) (Online)

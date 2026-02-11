@@ -15,3 +15,7 @@ Thời gian nhận hồ sơ: Từ ngày 18/12/2023 – 05/01/2024
 Trân trọng
 
 [Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM-1](https://www.citd.vn/wp-content/uploads/2023/12/Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM-1.doc)
+
+## Attachments
+
+- [Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM-1.doc](https://www.citd.vn/wp-content/uploads/2023/12/Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM-1.doc) (Online)

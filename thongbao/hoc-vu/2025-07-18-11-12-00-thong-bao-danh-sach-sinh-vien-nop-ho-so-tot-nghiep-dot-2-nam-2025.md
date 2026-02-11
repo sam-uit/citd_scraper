@@ -20,3 +20,8 @@ Phòng Đào tạo CITD thông báo danh sách sinh viên đã nộp hồ sơ t�
 Trung tâm Phát triển Công nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi sinh viên không thực hiện đúng theo thông báo này./.
 
 [DANH SÁCH ĐĂNG KÝ XÉT & LÀM LỄ TỐT NGHIỆP](https://www.citd.vn/wp-content/uploads/2025/07/DANH-SACH-DANG-KY-XET-LAM-LE-TOT-NGHIEP-1.pdf)
+
+## Attachments
+
+- [DANH-SACH-DANG-KY-XET-LAM-LE-TOT-NGHIEP-1.pdf](https://www.citd.vn/wp-content/uploads/2025/07/DANH-SACH-DANG-KY-XET-LAM-LE-TOT-NGHIEP-1.pdf) (Online)
+- [DANH-SACH-DANG-KY-XET-LAM-LE-TOT-NGHIEP-DOT-2-NAM-2025-1.pdf](https://www.citd.vn/wp-content/uploads/2025/07/DANH-SACH-DANG-KY-XET-LAM-LE-TOT-NGHIEP-DOT-2-NAM-2025-1.pdf) (Online)

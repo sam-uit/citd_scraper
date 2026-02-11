@@ -11,3 +11,7 @@ Lịch thi chính thức sẽ thông báo sau.
 Trân trọng!
 
 [THONG\_BAO\_DEN\_SINH\_VIEN\_THOI\_GIAN\_THI-1](https://www.citd.vn/wp-content/uploads/2023/12/THONG_BAO_DEN_SINH_VIEN_THOI_GIAN_THI-1.pdf)
+
+## Attachments
+
+- [THONG_BAO_DEN_SINH_VIEN_THOI_GIAN_THI-1.pdf](https://www.citd.vn/wp-content/uploads/2023/12/THONG_BAO_DEN_SINH_VIEN_THOI_GIAN_THI-1.pdf) (Online)

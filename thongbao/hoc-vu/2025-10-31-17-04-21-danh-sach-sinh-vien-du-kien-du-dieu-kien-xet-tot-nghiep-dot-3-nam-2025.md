@@ -24,3 +24,7 @@ Phòng đào tạo Trung tâm cập nhật danh sách sinh viên **dự kiến**
 **Trân trọng**
 
 [DANH SÁCH SINH VIÊN DỰ KIẾN ĐỦ ĐIỀU KIỆN XÉT TN VÀ NỘP HỒ SƠ](https://www.citd.vn/wp-content/uploads/2025/10/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-VA-NOP-HO-SO.pdf)
+
+## Attachments
+
+- [DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-VA-NOP-HO-SO.pdf](https://www.citd.vn/wp-content/uploads/2025/10/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DIEU-KIEN-XET-TN-VA-NOP-HO-SO.pdf) (Online)

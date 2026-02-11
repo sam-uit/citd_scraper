@@ -2,7 +2,7 @@
 
 - **Author:** Vưu Chí Hào
 - **Date:** 2025-03-03T09:52:27+07:00
-- **Original URL:** https://www.citd.edu.vn/thong-bao-nhan-bang-tot-nghiep-dot-3-nam-2024/
+- **Original URL:** https://www.citd.edu.vn/thong-bao-thu-hoc-phi-hoc-ky-i-nam-hoc-2025-2026/
 
 **\*\*\*Dành cho các bạn xét tốt nghiệp đợt 3 năm 2024**
 

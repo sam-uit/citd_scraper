@@ -8,14 +8,14 @@
 
 [DANH SÁCH VINH DANH 56 SINH VIÊN TỐT NGHIỆP LOẠI GIỎI](https://drive.google.com/drive/folders/1-DjBdekD0-sX5TihNKVZ9jSScSEjNLin?usp=sharing)
 
-[![](../../assets/images/588652088_1321917883307546_8688276980178801567_n-1024x723.jpg)](https://www.citd.edu.vn/wp-content/uploads/2025/11/588652088_1321917883307546_8688276980178801567_n.jpg)
+![](../assets/images/588652088_1321917883307546_8688276980178801567_n-1024x723.jpg)
 
 📝📝📝 Thời gian làm Lễ tốt nghiệp đợt 2 năm 2025. Hẹn gặp các Tân Khoa vào ngày thứ Năm nhé:
 
 * ⏰ Thời gian: 07g30, ngày 27/11/2025 (thứ Năm)
 * 📌 Tại Hội trường A – Trường Đại học Công nghệ Thông tin (tầng 3 toà A)
 
-[![](../../assets/images/585593133_1303027861626935_8490375280488507319_n-1024x390.png)](https://www.citd.edu.vn/wp-content/uploads/2025/11/585593133_1303027861626935_8490375280488507319_n.png)
+![](../assets/images/585593133_1303027861626935_8490375280488507319_n-1024x390.png)
 
 **TRUNG TÂM PHÁT TRIỂN CÔNG NGHỆ THÔNG TIN**
 

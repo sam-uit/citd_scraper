@@ -13,4 +13,5 @@ Phòng Đào tạo Trung tâm thông báo về việc điều chỉnh thời gia
 [32-TB-TTPTCNTT-ĐT](https://www.citd.edu.vn/wp-content/uploads/2026/01/32-TB-TTPTCNTT-DT-1.pdf)
 
 ## Attachments
-- [32-TB-TTPTCNTT-DT-1.pdf](../../assets/documents/32-TB-TTPTCNTT-DT-1.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/32-TB-TTPTCNTT-DT-1.pdf)
+
+- [32-TB-TTPTCNTT-DT-1.pdf](../assets/documents/32-TB-TTPTCNTT-DT-1.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2026/01/32-TB-TTPTCNTT-DT-1.pdf)

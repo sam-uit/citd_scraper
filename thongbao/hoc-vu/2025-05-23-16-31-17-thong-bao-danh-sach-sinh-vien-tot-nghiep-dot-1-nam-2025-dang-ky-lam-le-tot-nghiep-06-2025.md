@@ -20,3 +20,7 @@ PĐT-CITD thông báo kế hoạch làm lễ tốt nghiệp tháng 06 năm 2025:
   + Lệ phí: **400.000 đồng** *(Sinh viên có làm lễ sẽ được liên hệ đóng lệ phí)*
 * Thời gian làm lễ: **chiều ngày 07/6/2025 (thứ 7)**
 * Địa điểm làm lễ: Hội trường A – Tòa nhà A – Trường Đại học Công nghệ Thông tin (Đường Hàn Thuyên, Khu phố 6, phường Linh Trung, TP. Thủ Đức, TP. Hồ Chí Minh)
+
+## Attachments
+
+- [CITD-Danh-sach-tot-nghiep-dot-1-2025-1.pdf](https://www.citd.vn/wp-content/uploads/2025/05/CITD-Danh-sach-tot-nghiep-dot-1-2025-1.pdf) (Online)

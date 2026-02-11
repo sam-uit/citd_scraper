@@ -25,3 +25,7 @@ Sau thời gian quy định. Học viên không nộp đồ án sẽ đăng ký 
 Trân trọng
 
 [DANH-SACH-GIANG-VIEN](https://www.citd.vn/wp-content/uploads/2024/04/DANH-SACH-GIANG-VIEN.xlsx)
+
+## Attachments
+
+- [DANH-SACH-GIANG-VIEN.xlsx](https://www.citd.vn/wp-content/uploads/2024/04/DANH-SACH-GIANG-VIEN.xlsx) (Online)

@@ -11,3 +11,7 @@ Phòng đào tạo cập nhật lịch học học kỳ 2 năm 2024 – 2025 ng�
 [LICH-HOC-HOC-KY-2-NAM-2024-2025-TRI-TUE-NHAN-TAO](https://www.citd.vn/wp-content/uploads/2025/02/LICH-HOC-HOC-KY-2-NAM-2024-2025-TRI-TUE-NHAN-TAO.pdf)
 
 Trân trọng
+
+## Attachments
+
+- [LICH-HOC-HOC-KY-2-NAM-2024-2025-TRI-TUE-NHAN-TAO.pdf](https://www.citd.vn/wp-content/uploads/2025/02/LICH-HOC-HOC-KY-2-NAM-2024-2025-TRI-TUE-NHAN-TAO.pdf) (Online)

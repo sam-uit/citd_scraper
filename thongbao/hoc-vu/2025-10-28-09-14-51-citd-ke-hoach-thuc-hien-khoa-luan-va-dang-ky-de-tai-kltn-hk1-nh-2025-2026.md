@@ -29,3 +29,9 @@ Sinh viên chủ động liên hệ trực tiếp giảng viên để đăng ký
 * Tên đề tài tiếng Anh và tiếng Việt: chỉ viết hoa chữ cái đầu dòng và các danh từ riêng (không viết in hoa tất cả các chữ).
 
 Trân trọng ./.
+
+## Attachments
+
+- [Mau_DangKyKhoaLuanTotNghiep.doc](https://www.citd.vn/wp-content/uploads/2025/06/Mau_DangKyKhoaLuanTotNghiep.doc) (Online)
+- [mau_de_cuong_chi_tiet-1.docx](https://www.citd.vn/wp-content/uploads/2025/06/mau_de_cuong_chi_tiet-1.docx) (Online)
+- [Danh-sach-GV-ho-tro-thuc-hien-do-anTN-Khoa-luan-TN.xlsx](https://www.citd.vn/wp-content/uploads/2025/10/Danh-sach-GV-ho-tro-thuc-hien-do-anTN-Khoa-luan-TN.xlsx) (Online)

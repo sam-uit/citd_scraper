@@ -13,4 +13,5 @@ Trân trọng
 [593\_Thông báo kế hoạch thi HK1 2025 – 2026 SV](https://www.citd.edu.vn/wp-content/uploads/2025/12/593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf)
 
 ## Attachments
-- [593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf](../../assets/documents/593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2025/12/593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf)
+
+- [593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf](../assets/documents/593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf) (Local) | [Original](https://www.citd.edu.vn/wp-content/uploads/2025/12/593_Thong-bao-ke-hoach-thi-HK1-2025-2026-SV.pdf)

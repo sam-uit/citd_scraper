@@ -11,3 +11,7 @@ Phòng đào tạo Trung tâm cập nhật danh sách sinh viên dự kiến đ�
 [DANH SÁCH SINH VIÊN DỰ KIẾN ĐỦ ĐK XÉT TN ĐỢT 1.2025 07032025](https://www.citd.vn/wp-content/uploads/2025/03/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-1.2025-07032025-1.pdf)
 
 Trân trọng
+
+## Attachments
+
+- [DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-1.2025-07032025-1.pdf](https://www.citd.vn/wp-content/uploads/2025/03/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-1.2025-07032025-1.pdf) (Online)

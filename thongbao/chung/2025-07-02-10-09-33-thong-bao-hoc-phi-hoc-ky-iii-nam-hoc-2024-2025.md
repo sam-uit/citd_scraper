@@ -40,3 +40,6 @@ Sinh viên không nộp học phí đầy đủ và đúng hạn sẽ không đ�
 Trung tâm Phát triển Công nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi sinh viên không thực hiện đúng theo thông báo này.
 
 Toàn văn thông báo: [Xem tại đây](https://www.citd.vn/wp-content/uploads/2025/07/362-TB-VV-THU-HOC-PHI-HK-III-NAM-HOC-2024-2025_r.pdf)
+
+## Attachments
+- [362-TB-VV-THU-HOC-PHI-HK-III-NAM-HOC-2024-2025_r.pdf](https://www.citd.vn/wp-content/uploads/2025/07/362-TB-VV-THU-HOC-PHI-HK-III-NAM-HOC-2024-2025_r.pdf) (Online)

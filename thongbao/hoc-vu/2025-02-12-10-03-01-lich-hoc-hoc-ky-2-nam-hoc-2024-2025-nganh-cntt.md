@@ -11,3 +11,7 @@ Phòng đào tạo cập nhật lịch học học kỳ 2. Anh/Chị sinh viên 
 [LICH-HOC-HOC-KY-2-NAM-2024-2025-CNTT](https://www.citd.vn/wp-content/uploads/2025/02/LICH-HOC-HOC-KY-2-NAM-2024-2025-CNTT.pdf)
 
 Cám ơn Anh/ Chị sinh viên
+
+## Attachments
+
+- [LICH-HOC-HOC-KY-2-NAM-2024-2025-CNTT.pdf](https://www.citd.vn/wp-content/uploads/2025/02/LICH-HOC-HOC-KY-2-NAM-2024-2025-CNTT.pdf) (Online)

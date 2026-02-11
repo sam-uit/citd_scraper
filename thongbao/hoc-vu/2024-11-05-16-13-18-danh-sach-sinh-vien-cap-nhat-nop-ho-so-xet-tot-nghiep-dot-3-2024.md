@@ -15,3 +15,7 @@ Sinh viên chưa nộp hồ sơ Phòng đào tạo sẽ cho thời gian bổ sun
 Cám ơn các bạn sinh viên
 
 [DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TOT-NGHIEP](https://www.citd.vn/wp-content/uploads/2024/11/DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TOT-NGHIEP.pdf)
+
+## Attachments
+
+- [DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TOT-NGHIEP.pdf](https://www.citd.vn/wp-content/uploads/2024/11/DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TOT-NGHIEP.pdf) (Online)

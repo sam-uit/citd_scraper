@@ -13,3 +13,7 @@ Sinh viên đăng đăng ký thi lại do bão kiểm tra thông tin lịch thi 
 Trân trọng
 
 [LICH-THI-LAI-HOC-KY-3-NAM-2023-2024](https://www.citd.vn/wp-content/uploads/2024/10/LICH-THI-LAI-HOC-KY-3-NAM-2023-2024.pdf)
+
+## Attachments
+
+- [LICH-THI-LAI-HOC-KY-3-NAM-2023-2024.pdf](https://www.citd.vn/wp-content/uploads/2024/10/LICH-THI-LAI-HOC-KY-3-NAM-2023-2024.pdf) (Online)

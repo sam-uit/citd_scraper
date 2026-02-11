@@ -57,3 +57,7 @@ Trung tâm đề nghị Sinh viên kiểm tra và phản hồi thắc mắc (n�
 Trung tâm Phát triển Công Nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi sinh viên không thực hiện đúng theo thông báo này.
 
 Trân trọng./.
+
+## Attachments
+
+- [DANH-SACH-LICH-THI-CHINH-THUC-HK3-2024-2025.pdf](https://www.citd.vn/wp-content/uploads/2025/09/DANH-SACH-LICH-THI-CHINH-THUC-HK3-2024-2025.pdf) (Online)

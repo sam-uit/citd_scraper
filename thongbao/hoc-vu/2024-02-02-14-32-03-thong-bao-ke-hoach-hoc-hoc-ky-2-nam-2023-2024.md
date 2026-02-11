@@ -13,3 +13,7 @@ Phòng đào tạo thông báo đến các anh chị học viên kiểm tra cậ
 Trân trọng
 
 [THONG\_BAO\_KE\_HOACH\_DAO\_TAO\_HOC\_KY\_2\_NAM\_HOC\_2023\_-\_2024](https://www.citd.vn/wp-content/uploads/2024/02/THONG_BAO_KE_HOACH_DAO_TAO_HOC_KY_2_NAM_HOC_2023_-_2024.pdf)
+
+## Attachments
+
+- [THONG_BAO_KE_HOACH_DAO_TAO_HOC_KY_2_NAM_HOC_2023_-_2024.pdf](https://www.citd.vn/wp-content/uploads/2024/02/THONG_BAO_KE_HOACH_DAO_TAO_HOC_KY_2_NAM_HOC_2023_-_2024.pdf) (Online)

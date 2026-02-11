@@ -14,3 +14,4 @@ Sinh viên xem và làm theo hướng dẫn đính kèm: [Hướng dẫn sinh v
 * **Đối với sinh viên nhận trực tiếp vào ngày thi cuối học kỳ**: Hai ngày **24 & 25/01/2026** (Thứ 7 & Chủ nhật) tại **UIT**
 
 [![](https://www.citd.vn/wp-content/uploads/2025/09/Gemini_Generated_Image_vkgldnvkgldnvkgl.png)](https://www.citd.vn/wp-content/uploads/2025/09/Gemini_Generated_Image_vkgldnvkgldnvkgl.png)
+

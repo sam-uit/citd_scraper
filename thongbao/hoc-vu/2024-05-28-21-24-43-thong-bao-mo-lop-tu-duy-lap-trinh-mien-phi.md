@@ -27,3 +27,7 @@ Nếu cần thêm thông tin nào các bạn vui lòng liên hệ một trong c�
 
 * Zalo OA Trung tâm: [Trung tâm Phát triển Công nghệ Thông tin](https://zalo.me/223924445231257932)
 * Email phòng Đào tạo: phongdaotao.citd@uit.edu.vn
+
+## Attachments
+
+- [HD-Sinh-vie%CC%82n-du%CC%80ng-mail.pdf](https://www.citd.vn/wp-content/uploads/2021/10/HD-Sinh-vie%CC%82n-du%CC%80ng-mail.pdf) (Online)

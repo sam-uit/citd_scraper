@@ -13,3 +13,7 @@ Phòng đào tạo thông báo đến các anh chị học viên kiểm tra cậ
 Trân trọng
 
 [KẾ HOẠCH ĐÀO TẠO HK3 – 2024 – 2025 NGÀNH TTNT](https://www.citd.vn/wp-content/uploads/2025/05/KE-HOACH-DAO-TAO-HK3-2024-2025-NGANH-TTNT.pdf)
+
+## Attachments
+
+- [KE-HOACH-DAO-TAO-HK3-2024-2025-NGANH-TTNT.pdf](https://www.citd.vn/wp-content/uploads/2025/05/KE-HOACH-DAO-TAO-HK3-2024-2025-NGANH-TTNT.pdf) (Online)

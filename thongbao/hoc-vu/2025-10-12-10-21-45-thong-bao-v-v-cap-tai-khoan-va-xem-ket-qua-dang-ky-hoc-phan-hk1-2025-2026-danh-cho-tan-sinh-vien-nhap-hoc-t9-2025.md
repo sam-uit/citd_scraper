@@ -27,3 +27,7 @@ Trung tâm đề nghị SV nhanh chóng tiến hành kiểm tra **đăng nhập
 
 * **Hệ thống gửi dần các email từ ngày 13/10 đến hết ngày 14/10, SV vui lòng đợi nếu chưa nhận được email.**Ngoài ra, các dữ liệu khác trên trang student cũng đang được tiến hành cập nhật.
 * SV cần sử dụng email do CITD cấp (có dạng [mssv@ms.uit.edu.vn](mailto:mssv@ms.uit.edu.vn)) để được hỗ trợ
+
+## Attachments
+
+- [THOI-KHOA-BIEU-HK1-2025-2026-TAN-SINH-VIEN.pdf](https://www.citd.vn/wp-content/uploads/2025/10/THOI-KHOA-BIEU-HK1-2025-2026-TAN-SINH-VIEN.pdf) (Online)

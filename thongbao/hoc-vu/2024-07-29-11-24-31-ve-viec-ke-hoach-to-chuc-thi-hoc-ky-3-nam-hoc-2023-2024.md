@@ -11,3 +11,7 @@ Nhằm tạo điều kiện thuận lợi cho sinh viên ở xa có thể xem l�
 Trân trọng
 
 [397-TB-KE-HOACH-TO-CHUC-THI-HK3-NAM-HOC-2023-2024](https://www.citd.vn/wp-content/uploads/2024/07/397-TB-KE-HOACH-TO-CHUC-THI-HK3-NAM-HOC-2023-2024.pdf)
+
+## Attachments
+
+- [397-TB-KE-HOACH-TO-CHUC-THI-HK3-NAM-HOC-2023-2024.pdf](https://www.citd.vn/wp-content/uploads/2024/07/397-TB-KE-HOACH-TO-CHUC-THI-HK3-NAM-HOC-2023-2024.pdf) (Online)

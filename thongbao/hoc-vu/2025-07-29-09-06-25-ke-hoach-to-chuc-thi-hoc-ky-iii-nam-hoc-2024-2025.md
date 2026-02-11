@@ -11,3 +11,7 @@ Nhằm tạo điều kiện thuận lợi cho sinh viên ở xa có thể xem l�
 Trân trọng
 
 [KẾ HOẠCH TỔ CHỨC THI HK3 – SV](https://www.citd.vn/wp-content/uploads/2025/07/KE-HOACH-TO-CHUC-THI-HK3-SV.pdf)
+
+## Attachments
+
+- [KE-HOACH-TO-CHUC-THI-HK3-SV.pdf](https://www.citd.vn/wp-content/uploads/2025/07/KE-HOACH-TO-CHUC-THI-HK3-SV.pdf) (Online)

@@ -11,3 +11,7 @@ Phòng đào tạo Trung tâm Phát triển CNTT cập nhật quyết định x�
 Trân trọng
 
 [1392-QD-DHCNTT-29-12-2023](https://www.citd.vn/wp-content/uploads/2024/01/1392-QD-DHCNTT-29-12-2023.pdf)
+
+## Attachments
+
+- [1392-QD-DHCNTT-29-12-2023.pdf](https://www.citd.vn/wp-content/uploads/2024/01/1392-QD-DHCNTT-29-12-2023.pdf) (Online)

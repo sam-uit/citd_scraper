@@ -9,7 +9,7 @@ Thực hiện kế hoạch đào tạo năm học 2025 – 2026, Trung tâm Phá
 
 **Thời gian bắt đầu HK2 (2025 – 2026): từ ngày 02/03/2026**
 
-[![](../../assets/images/Screenshot-2026-02-06-at-11.11.35.png)](https://www.citd.edu.vn/wp-content/uploads/2026/02/Screenshot-2026-02-06-at-11.11.35.png)
+![](../assets/images/Screenshot-2026-02-06-at-11.11.35.png)
 
 **Lưu ý:**
 

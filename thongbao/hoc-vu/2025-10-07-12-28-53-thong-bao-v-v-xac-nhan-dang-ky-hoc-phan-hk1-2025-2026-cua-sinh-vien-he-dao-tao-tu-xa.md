@@ -38,3 +38,7 @@ Lịch học (thời gian, giảng viên,…) vẫn có thể thay đổi/ đi�
 Trong quá trình thực hiện, nếu có thắc mắc hoặc cần hỗ trợ Sinh viên có thể liên hệ email phongdaotao.citd@uit.edu.vn ***(Sinh viên cần sử dụng email do Trung tâm cấp để liên hệ, có dạng mssv@ms.uit.edu.vn)*** để được hỗ trợ.
 
 [[HUONG DAN] Xac nhan Dang ky hoc phan cho SV DTTX](https://www.citd.vn/wp-content/uploads/2025/10/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf)
+
+## Attachments
+
+- [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf](https://www.citd.vn/wp-content/uploads/2025/10/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf) (Online)

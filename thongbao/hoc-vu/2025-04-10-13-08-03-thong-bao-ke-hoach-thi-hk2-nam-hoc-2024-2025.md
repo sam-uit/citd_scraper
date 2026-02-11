@@ -11,3 +11,7 @@ Nhằm tạo điều kiện thuận lợi cho sinh viên ở xa có thể xem l�
 Trân trọng
 
 [THÔNG BÁO KẾ HOẠCH TỔ CHỨC THI HK2 – 2024 – 2025](https://www.citd.vn/wp-content/uploads/2025/04/THONG-BAO-KE-HOACH-TO-CHUC-THI-HK2-2024-2025.pdf)
+
+## Attachments
+
+- [THONG-BAO-KE-HOACH-TO-CHUC-THI-HK2-2024-2025.pdf](https://www.citd.vn/wp-content/uploads/2025/04/THONG-BAO-KE-HOACH-TO-CHUC-THI-HK2-2024-2025.pdf) (Online)

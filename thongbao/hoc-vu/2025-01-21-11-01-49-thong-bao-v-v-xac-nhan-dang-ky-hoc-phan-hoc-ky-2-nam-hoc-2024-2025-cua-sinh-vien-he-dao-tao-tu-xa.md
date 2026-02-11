@@ -29,3 +29,7 @@ Trong quá trình thực hiện, nếu có thắc mắc hoặc cần hỗ trợ 
 Trân trọng./.
 
 [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX](https://www.citd.vn/wp-content/uploads/2025/01/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf)
+
+## Attachments
+
+- [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf](https://www.citd.vn/wp-content/uploads/2025/01/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX.pdf) (Online)

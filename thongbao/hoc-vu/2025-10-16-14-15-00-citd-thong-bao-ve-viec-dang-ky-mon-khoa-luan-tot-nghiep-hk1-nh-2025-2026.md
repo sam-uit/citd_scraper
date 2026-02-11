@@ -31,3 +31,7 @@ Mọi thắc mắc, vui lòng liên hệ Phòng Đào tạo qua email: phongdaot
 **Trân trọng thông báo ./.**
 
 [HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2](https://www.citd.vn/wp-content/uploads/2025/10/HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf)
+
+## Attachments
+
+- [HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf](https://www.citd.vn/wp-content/uploads/2025/10/HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-2.pdf) (Online)

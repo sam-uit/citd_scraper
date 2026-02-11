@@ -25,3 +25,7 @@ Phòng Đào tạo thông báo về Hướng dẫn quy trình đăng ký **học
 Nếu có thắc mắc liên hệ về phòng Đào tạo qua email [phongdaotao.citd@uit.edu.vn](mailto:phongdaotao.citd@uit.edu.vn) hoặc liên hệ trực tiếp thầy Hào qua SĐT 0374 234 079
 
 Trân trọng./.
+
+## Attachments
+
+- [HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-3.pdf](https://www.citd.vn/wp-content/uploads/2024/10/HUONG-DAN-Dang-ky-hoc-phan-hoc-lai-hoc-cai-thien-hoc-ky-1-2024-2025-3.pdf) (Online)

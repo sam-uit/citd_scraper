@@ -11,3 +11,7 @@ Phòng đào tạo Trung tâm Phát triển CNTT thông báo kế hoạch đào 
 Phòng đào tạo thông báo đến các anh chị sinh viên kiểm tra cập nhật đúng môn học của lớp mình để tránh sai sót, nhầm lẫn. Trân trọng
 
 [KẾ HOẠCH ĐÀO TẠO HK I NĂM HỌC 2025-2026](https://www.citd.vn/wp-content/uploads/2025/10/KE-HOACH-DAO-TAO-HK-I-NAM-HOC-2025-2026-1.pdf)
+
+## Attachments
+
+- [KE-HOACH-DAO-TAO-HK-I-NAM-HOC-2025-2026-1.pdf](https://www.citd.vn/wp-content/uploads/2025/10/KE-HOACH-DAO-TAO-HK-I-NAM-HOC-2025-2026-1.pdf) (Online)

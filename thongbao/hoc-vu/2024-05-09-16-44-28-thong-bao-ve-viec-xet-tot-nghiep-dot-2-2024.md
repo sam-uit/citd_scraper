@@ -15,3 +15,7 @@ Thời gian nhận hồ sơ: Từ ngày 10/05/2024 – 24/05/2024
 Địa điểm nộp hồ sơ trong giờ hành chính tại: Số 7 – 9 Nguyễn Bỉnh Khiêm – P. Bến Nghé – Q. 1 – TP.HCM
 
 Trân trọng
+
+## Attachments
+
+- [Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM.doc](https://www.citd.vn/wp-content/uploads/2024/05/Mau-don-xin-cap-bang-Tot-nghiep-CNTXQM.doc) (Online)

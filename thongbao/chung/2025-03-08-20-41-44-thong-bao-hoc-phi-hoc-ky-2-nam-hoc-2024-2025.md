@@ -58,3 +58,7 @@ Sinh viên không nộp học phí đầy đủ và đúng hạn sẽ không đ�
 Trung tâm Phát triển Công nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi sinh viên không thực hiện đúng theo thông báo này.
 
 Toàn văn thông báo: [Xem tại đây](https://www.citd.vn/wp-content/uploads/2025/03/151-red_0001.pdf)
+
+## Attachments
+- [186-red-vv-gia-han-thoi-gian-thu-hoc-phi-HK-II-nam-2024-2025_0001.pdf](https://www.citd.vn/wp-content/uploads/2025/03/186-red-vv-gia-han-thoi-gian-thu-hoc-phi-HK-II-nam-2024-2025_0001.pdf) (Online)
+- [151-red_0001.pdf](https://www.citd.vn/wp-content/uploads/2025/03/151-red_0001.pdf) (Online)

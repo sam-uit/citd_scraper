@@ -15,3 +15,7 @@ Sinh viên thực hiện đồ án tiến hành thực hiện Đồ án môn h�
 Chúc anh chị sinh viên thực hiện tốt môn đồ án môn học của mình của mình.
 
 Cám ơn các anh chị sinh viên
+
+## Attachments
+
+- [DANG-KY-DO-AN-CN1.K2022.1CN1.K2022.2.pdf](https://www.citd.vn/wp-content/uploads/2024/11/DANG-KY-DO-AN-CN1.K2022.1CN1.K2022.2.pdf) (Online)

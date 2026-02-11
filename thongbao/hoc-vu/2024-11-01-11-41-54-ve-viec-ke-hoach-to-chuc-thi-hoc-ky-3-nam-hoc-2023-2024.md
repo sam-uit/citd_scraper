@@ -11,3 +11,7 @@ Nhằm tạo điều kiện thuận lợi cho sinh viên ở xa có thể xem l�
 Trân trọng
 
 [KE-HOACH-TO-CHUC-THI-KET-THUC-HK1-NAM-2024-2025](https://www.citd.vn/wp-content/uploads/2024/11/KE-HOACH-TO-CHUC-THI-KET-THUC-HK1-NAM-2024-2025.pdf)
+
+## Attachments
+
+- [KE-HOACH-TO-CHUC-THI-KET-THUC-HK1-NAM-2024-2025.pdf](https://www.citd.vn/wp-content/uploads/2024/11/KE-HOACH-TO-CHUC-THI-KET-THUC-HK1-NAM-2024-2025.pdf) (Online)

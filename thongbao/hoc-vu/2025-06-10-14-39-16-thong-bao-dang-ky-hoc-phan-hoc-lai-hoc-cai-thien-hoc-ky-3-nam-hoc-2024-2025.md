@@ -36,3 +36,8 @@ PĐT-CITD thông báo về Hướng dẫn quy trình đăng ký học lại, h�
 Nếu có thắc mắc liên hệ về phòng Đào tạo qua email [phongdaotao.citd@uit.edu.vn](mailto:phongdaotao.citd@uit.edu.vn) hoặc [ZaloOA của Trung tâm](https://zalo.me/trungtamcitd)
 
 Trân trọng./.
+
+## Attachments
+
+- [THOI-KHOA-BIEU-HK3-2024-2025-1.pdf](https://www.citd.vn/wp-content/uploads/2025/06/THOI-KHOA-BIEU-HK3-2024-2025-1.pdf) (Online)
+- [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX-1.pdf](https://www.citd.vn/wp-content/uploads/2025/06/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX-1.pdf) (Online)

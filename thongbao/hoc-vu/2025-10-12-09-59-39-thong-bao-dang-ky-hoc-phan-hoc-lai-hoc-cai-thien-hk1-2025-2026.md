@@ -36,3 +36,8 @@ Thời gian đăng ký: **từ 09g00 ngày 13/10/2025 đến 23g00 ngày 15/10/
 **Bước 4:** PĐT-CITD phê duyệt kết quả đăng ký học lại, học cải thiện: Sinh viên theo dõi kết quả ĐKHP học lại, học cải thiện trên website <https://student.citd.vn/> và tham gia vào các lớp học được phê duyệt. **Thời gian phê duyệt từ ngày 14/10 đến ngày 20/10 *(Sinh viên sẽ được thêm đầy đủ vào trước mỗi buổi học trên MS Teams và Elearning).***
 
 Nếu có thắc mắc liên hệ về phòng Đào tạo qua email [phongdaotao.citd@uit.edu.vn](mailto:phongdaotao.citd@uit.edu.vn) hoặc [ZaloOA của Trung tâm](https://zalo.me/trungtamcitd)
+
+## Attachments
+
+- [THOI-KHOA-BIEU-HK1-2025-2026.pdf](https://www.citd.vn/wp-content/uploads/2025/10/THOI-KHOA-BIEU-HK1-2025-2026.pdf) (Online)
+- [HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX-1.pdf](https://www.citd.vn/wp-content/uploads/2025/06/HUONG-DAN-Xac-nhan-Dang-ky-hoc-phan-cho-SV-DTTX-1.pdf) (Online)

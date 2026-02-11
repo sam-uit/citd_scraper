@@ -11,3 +11,7 @@ Sau thời gian cập nhật thông báo thông tin xét tốt nghiệp đợt 3
 Cám ơn anh chị sinh viên
 
 [DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-3-17102024-1](https://www.citd.vn/wp-content/uploads/2024/10/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-3-17102024-1.pdf)
+
+## Attachments
+
+- [DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-3-17102024-1.pdf](https://www.citd.vn/wp-content/uploads/2024/10/DANH-SACH-SINH-VIEN-DU-KIEN-DU-DK-XET-TN-DOT-3-17102024-1.pdf) (Online)

@@ -15,3 +15,8 @@ Trường hợp sinh viên đủ điều kiện xét tốt nghiệp sinh viên s
 Trân trọng
 
 [DANH-SACH-SINH-VIEN-DU-DK-XET-TN-DOT-3](https://www.citd.vn/wp-content/uploads/2024/10/DANH-SACH-SINH-VIEN-DU-DK-XET-TN-DOT-3.pdf)
+
+## Attachments
+
+- [DANH-SACH-SINH-VIEN-DU-DK-XET-TN-DOT-3.pdf](https://www.citd.vn/wp-content/uploads/2024/10/DANH-SACH-SINH-VIEN-DU-DK-XET-TN-DOT-3.pdf) (Online)
+- [don-xin-cap-bang-Tot-nghiep-CNTXQM-1.doc](https://www.citd.vn/wp-content/uploads/2024/10/don-xin-cap-bang-Tot-nghiep-CNTXQM-1.doc) (Online)

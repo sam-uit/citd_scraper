@@ -11,3 +11,7 @@ Nhằm tạo điều kiện thuận lợi cho sinh viên ở xa có thể xem l�
 Trân trọng
 
 [KE-HOACH-TO-CHUC-THI-HOC-KY-2-2023-2024](https://www.citd.vn/wp-content/uploads/2024/04/KE-HOACH-TO-CHUC-THI-HOC-KY-2-2023-2024.pdf)
+
+## Attachments
+
+- [KE-HOACH-TO-CHUC-THI-HOC-KY-2-2023-2024.pdf](https://www.citd.vn/wp-content/uploads/2024/04/KE-HOACH-TO-CHUC-THI-HOC-KY-2-2023-2024.pdf) (Online)

@@ -36,3 +36,7 @@ Sinh viên **không thể ký tên** vào 02 ngày trên, có thể đến trự
 Trung tâm Phát triển Công Nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi sinh viên không thực hiện đúng theo thông báo này.
 
 Trân trọng./.
+
+## Attachments
+
+- [DANH-SACH-CA-THI-PHONG-THI-HK1-2024-2025-3.pdf](https://www.citd.vn/wp-content/uploads/2025/01/DANH-SACH-CA-THI-PHONG-THI-HK1-2024-2025-3.pdf) (Online)

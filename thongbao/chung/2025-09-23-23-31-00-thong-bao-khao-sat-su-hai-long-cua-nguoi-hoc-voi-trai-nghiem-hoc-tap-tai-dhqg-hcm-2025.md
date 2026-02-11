@@ -36,3 +36,6 @@ Rất mong các bạn tham gia đầy đủ
 Trân trọng ./.
 
 [huong\_dan\_khao\_sat\_ir3\_-\_2025](https://www.citd.vn/wp-content/uploads/2025/09/huong_dan_khao_sat_ir3_-_2025.pdf)
+
+## Attachments
+- [huong_dan_khao_sat_ir3_-_2025.pdf](https://www.citd.vn/wp-content/uploads/2025/09/huong_dan_khao_sat_ir3_-_2025.pdf) (Online)

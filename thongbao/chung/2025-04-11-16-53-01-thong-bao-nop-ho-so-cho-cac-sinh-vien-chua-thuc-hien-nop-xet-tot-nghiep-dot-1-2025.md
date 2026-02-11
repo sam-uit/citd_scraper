@@ -11,3 +11,6 @@ Phòng đào tạo Trung tâm thông báo đến sinh viên chưa nộp hồ sơ
 Trân trọng
 
 [DANH SÁCH SINH VIÊN NỘP HỒ SƠ XÉT TN ĐỢT 1.2025](https://www.citd.vn/wp-content/uploads/2025/04/DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TN-DOT-1.2025.pdf)
+
+## Attachments
+- [DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TN-DOT-1.2025.pdf](https://www.citd.vn/wp-content/uploads/2025/04/DANH-SACH-SINH-VIEN-NOP-HO-SO-XET-TN-DOT-1.2025.pdf) (Online)

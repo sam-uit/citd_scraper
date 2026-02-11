@@ -35,3 +35,7 @@ Trung tâm đề nghị SV nhanh chóng tiến hành kiểm tra **đăng nhập
 Trung tâm Phát triển Công Nghệ Thông tin sẽ không giải quyết mọi khiếu nại liên quan khi SV không thực hiện đúng theo thông báo này.
 
 Trân trọng./.
+
+## Attachments
+
+- [THOI-KHOA-BIEU-2025-HK3-2024-2025.pdf](https://www.citd.vn/wp-content/uploads/2025/06/THOI-KHOA-BIEU-2025-HK3-2024-2025.pdf) (Online)
