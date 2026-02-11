@@ -29,6 +29,16 @@ To scrape **all** pages (deep scrape):
 uv run python scraper.py --all
 ```
 
+To **force refresh** all announcements (ignore local database):
+```bash
+uv run python scraper.py --pull
+```
+
+To run in **headless mode** (experimental, may be blocked by Cloudflare):
+```bash
+uv run python scraper.py --headless
+```
+
 *Note: If the scraper encounters Cloudflare protection (403 Forbidden), it will attempt to use `curl_cffi` to bypass it. If that fails, you can generate data from local HTML files (if available) using:*
 
 ```bash

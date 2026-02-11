@@ -30,6 +30,7 @@ CATEGORIES = {
 
 DATA_DIR = "thongbao"
 ASSETS_DIR = os.path.join(DATA_DIR, "assets")
+DB_FILE = os.path.join(DATA_DIR, "thongbao.json")
 
 # Create directories
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -37,31 +38,46 @@ os.makedirs(ASSETS_DIR, exist_ok=True)
 for cat in CATEGORIES.values():
     os.makedirs(os.path.join(DATA_DIR, cat["dir"]), exist_ok=True)
 
+# Database Management
+def load_db():
+    if os.path.exists(DB_FILE):
+        try:
+            with open(DB_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error loading DB: {e}")
+    return {}
+
+def save_db(db):
+    try:
+        with open(DB_FILE, 'w', encoding='utf-8') as f:
+            json.dump(db, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print(f"Error saving DB: {e}")
+
 # DrissionPage Initialization
-print("Initializing Browser...")
-def get_browser():
+browser = None
+
+def init_browser(headless=False):
+    global browser
+    print("Initializing Browser...")
     try:
         co = ChromiumOptions()
         co.set_argument('--no-first-run')
         # Explicit path for reliability on macOS
         co.set_browser_path('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
         co.set_local_port(9310)
-        print("DrissionPage options set. Launching...")
-        return ChromiumPage(co)
+        
+        if headless:
+            co.headless()
+            
+        print(f"DrissionPage options set (Headless: {headless}). Launching...")
+        browser = ChromiumPage(co)
+        print("Browser initialized successfully.")
+        return browser
     except Exception as e:
         print(f"Error initializing browser: {e}")
         return None
-
-# Global browser instance
-try:
-    browser = get_browser()
-    if browser:
-        print("Browser initialized successfully.")
-    else:
-        print("Browser initialization failed (None).")
-except Exception as e:
-    print(f"Global browser init failed: {e}")
-    browser = None
 
 def clean_text(text):
     if text:
@@ -288,14 +304,30 @@ def generate_id_and_date(data):
 
     return slug, formatted_date
 
-def check_if_exists(slug, formatted_date, category_key):
+def check_if_exists(slug, formatted_date, category_key, db, force_pull=False):
     """
-    Check if a ThongBao with this ID exists in the specific category dir
-    and if the content date is the same.
+    Check if a ThongBao with this ID exists in DB or file system.
     Returns: (exists: bool, should_update: bool)
     """
+    if force_pull:
+        return True, True
+
+    # 1. Check in Database
+    if slug in db:
+        existing_date = db[slug].get('date', '')
+        if existing_date == formatted_date:
+            print(f"Skipping {slug} (DB): Date {formatted_date} unchanged.")
+            return True, False
+        else:
+            print(f"Updating {slug} (DB): Date changed from {existing_date} to {formatted_date}")
+            return True, True
+
+    # 2. Fallback: Check file system (for first run or out-of-sync)
     cat_dir = os.path.join(DATA_DIR, CATEGORIES[category_key]['dir'])
     try:
+        if not os.path.exists(cat_dir):
+            return False, True
+            
         valid_files = [f for f in os.listdir(cat_dir) if f.endswith(f"_{slug}.json") or f.endswith(f"-{slug}.json")]
     except FileNotFoundError:
         return False, True
@@ -309,17 +341,30 @@ def check_if_exists(slug, formatted_date, category_key):
 
     try:
         existing = ThongBao.load_from_json(json_path)
+        # Update DB since we found it on disk but not in DB
+        db[slug] = {
+            "id": slug,
+            "date": existing.date,
+            "type": existing.topic,
+            "scraped_time": existing.created_at
+        }
+        # Save DB immediately or wait? Better save to avoid data loss, but costly. 
+        # For now, we just update memory and it will be saved if we hit save_announcement or at end.
+        # But here we might skip saving, so DB won't persist if we skip.
+        # So we should save DB if we populate it from file.
+        save_db(db) # Sync back to DB
+        
         if existing.date == formatted_date:
-            print(f"Skipping {slug}: Date {formatted_date} unchanged. Scraped at {existing.created_at}")
-            return True, False # Exists, No update needed
+            print(f"Skipping {slug} (File->DB): Date {formatted_date} unchanged.")
+            return True, False 
         else:
-            print(f"Updating {slug}: Date changed from {existing.date} to {formatted_date}")
-            return True, True # Exists, Update needed
+            print(f"Updating {slug} (File): Date changed from {existing.date} to {formatted_date}")
+            return True, True
     except Exception as e:
         print(f"Error checking duplicate for {slug}: {e}")
         return False, True
 
-def save_announcement(data, category_key="hoc-vu"):
+def save_announcement(data, category_key="hoc-vu", db=None):
     # ID from URL or title hash
     if not data or not data.get('title'):
         return
@@ -370,14 +415,36 @@ def save_announcement(data, category_key="hoc-vu"):
 
     # Save using Model
     tb.save_to_json(json_path)
+    
+    # Update DB
+    if db is not None:
+        db[slug] = {
+            "id": slug,
+            "date": formatted_date,
+            "type": cat_info["name"],
+            "scraped_time": tb.created_at
+        }
+        save_db(db)
+        
     print(f"Saved to {cat_info['dir']}: {data['title']}")
 
 def main():
     parser = argparse.ArgumentParser(description="Scrape CITD announcements.")
     parser.add_argument("--all", action="store_true", help="Scrape all pages (default: page 1 only)")
+    parser.add_argument("--pull", action="store_true", help="Force refresh all announcements")
+    parser.add_argument("--headless", action="store_true", help="Run in headless mode (no UI)")
     args = parser.parse_args()
 
     print("Starting CITD Scraper...")
+    
+    # Init Browser
+    if not init_browser(headless=args.headless):
+        print("Failed to initialize browser. Exiting.")
+        return
+
+    # Load DB
+    db = load_db()
+    print(f"Loaded {len(db)} items from database.")
     
     if args.all:
         print("Mode: Scraping ALL pages.")
@@ -414,7 +481,7 @@ def main():
                 slug, formatted_date = generate_id_and_date(temp_data)
 
                 # Check if exists
-                exists, should_update = check_if_exists(slug, formatted_date, cat_key)
+                exists, should_update = check_if_exists(slug, formatted_date, cat_key, db, force_pull=args.pull)
 
                 if exists and not should_update:
                     continue
@@ -425,7 +492,7 @@ def main():
                     detail_data = parse_detail_page(detail_content, detail_url)
                     if detail_data:
                         detail_data['url'] = detail_url
-                        save_announcement(detail_data, category_key=cat_key)
+                        save_announcement(detail_data, category_key=cat_key, db=db)
 
                 # Rate limiting
                 time.sleep(1)
@@ -434,6 +501,9 @@ def main():
             time.sleep(2)
 
     print("Scraping completed.")
+    
+    # Save final state of DB just in case
+    save_db(db)
     
     if browser:
         browser.quit()
