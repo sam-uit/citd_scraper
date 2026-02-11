@@ -2,16 +2,16 @@ import os
 import time
 import json
 import argparse
-# from curl_cffi import requests as crequests # Removed
 from DrissionPage import ChromiumPage, ChromiumOptions
 from lxml import html
 from datetime import datetime
 import hashlib
 from urllib.parse import urljoin, urlparse
-import re
 from markdownify import markdownify as md
-from slugify import slugify
+
 from models.ThongBao import ThongBao
+from utils.helpers import clean_text, parse_date, extract_id_from_url, generate_id_and_date
+from utils.network import download_resource, fetch_url
 
 # Configuration
 BASE_URL = "https://www.citd.edu.vn"
@@ -69,7 +69,7 @@ def init_browser(headless=False):
         co.set_argument('--no-first-run')
         # Explicit path for reliability on macOS
         co.set_browser_path('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
-        co.set_local_port(9310)
+        # co.set_local_port(9310) 
         
         if headless:
             co.headless()
@@ -81,74 +81,6 @@ def init_browser(headless=False):
     except Exception as e:
         print(f"Error initializing browser: {e}")
         return None
-
-def clean_text(text):
-    if text:
-        return re.sub(r'\s+', ' ', text).strip()
-    return ""
-
-def parse_date(date_str):
-    # Try different formats if needed. Default seems to be generic or specific to locale
-    # Example: "10/01/2024" or "10 Tháng Một, 2024"
-    try:
-        # Placeholder for actual date parsing logic based on observation
-        return datetime.strptime(date_str, "%d/%m/%Y")
-    except ValueError:
-        return None
-
-def extract_id_from_url(url):
-    path = urlparse(url).path
-    return path.strip('/').split('/')[-1]
-
-def download_resource(url, save_dir):
-    try:
-        if not browser:
-            return None
-            
-        # Extract filename
-        path = urlparse(url).path
-        filename = os.path.basename(path)
-        if not filename:
-            filename = f"resource_{hashlib.md5(url.encode()).hexdigest()}"
-            
-        # Check if exists
-        filepath = os.path.join(save_dir, filename)
-        if os.path.exists(filepath):
-            return filepath
-
-        print(f"Downloading: {url} ...")
-        
-        # Use DrissionPage to download
-        # Easiest way: browser.download(url, save_dir, filename)
-        # But for images, we might want to just get bytes if it's not a forced download link.
-        
-        # Method 1: requests with browser cookies (most robust for images)
-        import requests
-        
-        # Correct DrissionPage usage based on debug:
-        # browser.cookies() returns CookiesList which has as_dict() method.
-        try:
-             cookies = browser.cookies().as_dict()
-        except Exception as e:
-             print(f"Cookie error: {e}")
-             cookies = {}
-
-        headers = {
-            "User-Agent": browser.user_agent,
-            "Referer": BASE_URL
-        }
-        
-        response = requests.get(url, headers=headers, cookies=cookies, timeout=30)
-        if response.status_code == 200:
-            with open(filepath, 'wb') as f:
-                f.write(response.content)
-            return filepath
-        else:
-            print(f"Failed to download {url}: Status {response.status_code}")
-            
-    except Exception as e:
-        print(f"Error downloading {url}: {e}")
-    return None
 
 
 def parse_list_page(content, is_local=False):
@@ -200,7 +132,7 @@ def parse_list_page(content, is_local=False):
 
     return announcements
 
-def parse_detail_page(content, url):
+def parse_detail_page(content, url, browser):
     tree = html.fromstring(content)
 
     try:
@@ -233,7 +165,7 @@ def parse_detail_page(content, url):
                         src = urljoin(BASE_URL, src)
                         
                     # Download image
-                    local_path = download_resource(src, ASSETS_IMAGES_DIR)
+                    local_path = download_resource(src, ASSETS_IMAGES_DIR, browser)
                     if local_path:
                         # Compute relative path for Markdown (thongbao/hoc-vu/.. -> thongbao/assets/images/..)
                         # We save MD in thongbao/hoc-vu/. So rel path is ../../assets/images/filename
@@ -294,63 +226,7 @@ def parse_detail_page(content, url):
         print(f"Error parsing detail {url}: {e}")
         return None
 
-def fetch_url(url, retries=3):
-    print(f"Fetching {url}...")
-    if not browser:
-        print("Browser not initialized.")
-        return None
-        
-    for i in range(retries):
-        try:
-            browser.get(url)
-            # Wait for content or Cloudflare
-            # Simple wait for title to not be "Just a moment..." or "Attention Required"
-            # Or better, wait for a known element if possible, or just sleep a bit.
-            # DrissionPage .get() usually waits for load.
-            
-            # Check for Cloudflare title
-            if "Just a moment" in browser.title or "Attention Required" in browser.title:
-                print("Cloudflare challenge detected. Waiting...")
-                time.sleep(5)
-            
-            # If we are on the target page
-            if browser.ele('tag:body'): # Simple check if body exists
-                return browser.html
-            else:
-                print(f"Page load failed for {url}. Retrying...")
-                time.sleep(2 * (i + 1))
-        except Exception as e:
-            print(f"Error fetching {url}: {e}. Retrying...")
-            time.sleep(2 * (i + 1))
-            try:
-                # Attempt reconnect/restart if major failure?
-                # browser.reconnect() 
-                pass
-            except:
-                pass
-    return None
 
-def generate_id_and_date(data):
-     # Create slug for ID/Filename
-    slug = slugify(data['title'])
-    if not slug:
-         slug = hashlib.md5(data['url'].encode()).hexdigest()
-
-    # Date for sorting: yyyy-mm-dd-hh-mm-ss
-    date_str = data.get('date', '')
-    formatted_date = ""
-    try:
-        if date_str:
-            dt = datetime.fromisoformat(date_str)
-            formatted_date = dt.strftime("%Y-%m-%d-%H-%M-%S")
-        else:
-            # Fallback to current time if no date found
-            formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    except Exception as e:
-        print(f"Error parsing date {date_str}: {e}")
-        formatted_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-
-    return slug, formatted_date
 
 def check_if_exists(slug, formatted_date, category_key, db, force_pull=False):
     """
@@ -412,7 +288,7 @@ def check_if_exists(slug, formatted_date, category_key, db, force_pull=False):
         print(f"Error checking duplicate for {slug}: {e}")
         return False, True
 
-def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False):
+def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False, no_md=False):
     # ID from URL or title hash
     if not data or not data.get('title'):
         return
@@ -437,46 +313,38 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False)
             if not asset_url.startswith('http'):
                 asset_url = urljoin(BASE_URL, asset_url)
                 
-            local_path = download_resource(asset_url, ASSETS_DOCS_DIR)
+            local_path = download_resource(asset_url, ASSETS_DOCS_DIR, browser)
             if local_path:
                 local_assets.append(local_path)
 
     # Save Markdown Content
-    with open(md_path, 'w', encoding='utf-8') as f:
-        f.write(f"# {data['title']}\n\n")
-        f.write(f"- **Author:** {data['author']}\n")
-        f.write(f"- **Date:** {data['date']}\n")
-        f.write(f"- **Original URL:** {data['url']}\n\n")
-        f.write(data['content'])
+    if not no_md:
+        with open(md_path, 'w', encoding='utf-8') as f:
+            f.write(f"# {data['title']}\n\n")
+            f.write(f"- **Author:** {data['author']}\n")
+            f.write(f"- **Date:** {data['date']}\n")
+            f.write(f"- **Original URL:** {data['url']}\n\n")
+            f.write(data['content'])
 
-        # Attachments section
-        # Logic: 
-        # 1. If download_docs is True and file downloaded -> Link to local file
-        # 2. If download_docs is False -> Link to original URL
-        # 3. Or list both?
-        
-        # Current logic: List original links, and if available, list local links?
-        # Standard: Just list downloadable links.
-        
-        if data.get('asset_links'):
-            f.write("\n\n## Attachments\n\n")
-            for asset_url in data.get('asset_links'):
-                 # Fix relative URLs if needed
-                if not asset_url.startswith('http'):
-                    asset_url = urljoin(BASE_URL, asset_url)
-                
-                filename = os.path.basename(urlparse(asset_url).path)
-                
-                # Check if we have it locally (either just downloaded or existed)
-                local_path = os.path.join(ASSETS_DOCS_DIR, filename)
-                
-                if download_docs and os.path.exists(local_path):
-                     # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
-                     # ../assets/documents/filename
-                     rel_path = f"../assets/documents/{filename}"
-                     f.write(f"- [{filename}]({rel_path}) (Local) | [Original]({asset_url})\n")
-                else:
-                     f.write(f"- [{filename}]({asset_url}) (Online)\n")
+            if data.get('asset_links'):
+                f.write("\n\n## Attachments\n\n")
+                for asset_url in data.get('asset_links'):
+                     # Fix relative URLs if needed
+                    if not asset_url.startswith('http'):
+                        asset_url = urljoin(BASE_URL, asset_url)
+                    
+                    filename = os.path.basename(urlparse(asset_url).path)
+                    
+                    # Check if we have it locally (either just downloaded or existed)
+                    local_path = os.path.join(ASSETS_DOCS_DIR, filename)
+                    
+                    if download_docs and os.path.exists(local_path):
+                         # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
+                         # ../assets/documents/filename
+                         rel_path = f"../assets/documents/{filename}"
+                         f.write(f"- [{filename}]({rel_path}) (Local) | [Original]({asset_url})\n")
+                    else:
+                         f.write(f"- [{filename}]({asset_url}) (Online)\n")
 
     # Create ThongBao object
     tb = ThongBao(
@@ -486,9 +354,10 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False)
         author=data['author'],
         topic=cat_info["name"],
         tags=data.get('tags', []),
-        content_md_path=os.path.basename(md_path),
+        content_md_path=os.path.basename(md_path) if not no_md else "",
         original_url=data['url'],
-        assets=[os.path.basename(a) for a in local_assets]
+        assets=[os.path.basename(a) for a in local_assets],
+        content=data['content']
     )
 
     # Save using Model
@@ -513,10 +382,83 @@ def main():
     parser.add_argument("--headless", action="store_true", help="Run in headless mode (no UI)")
     parser.add_argument("--download", action="store_true", help="Download document attachments (PDF, DOC, etc.)")
     parser.add_argument("-p", "--pages", type=int, default=1, help="Number of pages to scrape (default: 1)")
+    parser.add_argument("--no-md", action="store_true", help="Skip Markdown file generation")
+    parser.add_argument("--regenerate", action="store_true", help="Regenerate Markdown files from JSON")
     args = parser.parse_args()
 
     print("Starting CITD Scraper...")
-    
+
+    if args.regenerate:
+        print("Mode: Regenerating Markdown files...")
+        # Load all JSONs and regenerate MD
+        for cat_key, cat_info in CATEGORIES.items():
+            cat_dir = os.path.join(DATA_DIR, cat_info['dir'])
+            if not os.path.exists(cat_dir):
+                continue
+                
+            print(f"Processing {cat_info['name']}...")
+            for filename in os.listdir(cat_dir):
+                if filename.endswith(".json"):
+                    json_path = os.path.join(cat_dir, filename)
+                    try:
+                        with open(json_path, 'r', encoding='utf-8') as f:
+                            data = json.load(f)
+                            
+                        # If content is missing, we can't regenerate fully unless we re-fetch?
+                        # But scraper logic saves content if available.
+                        # data usually has 'content' field now.
+                        
+                        if 'content' not in data:
+                             print(f"Skipping {filename}: No content field.")
+                             continue
+                             
+                        # Reuse save_announcement logic? 
+                        # Ideally yes, but save_announcement also creates ThongBao obj and updates DB.
+                        # We just want to rewrite MD.
+                        
+                        # Let's extract save_md logic or just repeat it here properly.
+                        # Or call save_announcement but modify it to accept data directly?
+                        # save_announcement expects `data` dict with specific keys.
+                        # `ThongBao.to_dict()` has these keys.
+                        
+                        # Let's use save_announcement but with a flag to ONLY save MD?
+                        # No, save_announcement does too much.
+                        
+                        md_path = os.path.join(cat_dir, filename.replace(".json", ".md"))
+                        
+                        with open(md_path, 'w', encoding='utf-8') as f:
+                            f.write(f"# {data['title']}\n\n")
+                            f.write(f"- **Author:** {data['author']}\n")
+                            f.write(f"- **Date:** {data['date']}\n")
+                            f.write(f"- **Original URL:** {data['original_url']}\n\n")
+                            f.write(data['content'])
+
+                            if data.get('assets'): # ThongBao obj stores assets filenames
+                                f.write("\n\n## Attachments\n\n")
+                                for asset in data.get('assets'):
+                                    # Local asset path
+                                    # md is in thongbao/cat/
+                                    # assets in thongbao/assets/documents/
+                                    rel_path = f"../assets/documents/{asset}"
+                                    # We don't have original URL easily for assets unless preserved in data?
+                                    # ThongBao obj stores 'assets' as list of strings (filenames).
+                                    # The original 'asset_links' might be lost if not stored in ThongBao model!
+                                    # Checked ThongBao.py: it stores 'assets' list.
+                                    # But `data` loaded from json IS the ThongBao dict.
+                                    
+                                    # Wait, `save_announcement` uses `data['asset_links']` which comes from parser.
+                                    # `ThongBao` object does NOT store `asset_links` (original URLs).
+                                    # So we can't regenerate the "| [Original](url)" part if we only have `ThongBao` json.
+                                    # Unless we add `asset_links` to `ThongBao` model too!
+                                    
+                                    f.write(f"- [{asset}]({rel_path}) (Local)\n")
+                                    
+                        print(f"Regenerated {md_path}")
+                        
+                    except Exception as e:
+                        print(f"Error regenerating {filename}: {e}")
+        return
+
     # Init Browser
     if not init_browser(headless=args.headless):
         print("Failed to initialize browser. Exiting.")
@@ -539,6 +481,9 @@ def main():
     if args.download:
         print("Mode: Downloading document attachments enabled.")
 
+    if args.no_md:
+        print("Mode: No Markdown generation (saving JSON only).")
+
     for cat_key, cat_info in CATEGORIES.items():
         print(f"Scraping Category: {cat_info['name']}...")
         page = 1
@@ -548,7 +493,7 @@ def main():
                 url = f"{cat_info['url']}page/{page}/"
 
             print(f"Scraping Page {page}...")
-            content = fetch_url(url)
+            content = fetch_url(url, browser)
             if not content:
                 print("Failed to retrieve page content. Stopping.")
                 break
@@ -573,12 +518,12 @@ def main():
                     continue
 
                 detail_url = item['url']
-                detail_content = fetch_url(detail_url)
+                detail_content = fetch_url(detail_url, browser)
                 if detail_content:
-                    detail_data = parse_detail_page(detail_content, detail_url)
+                    detail_data = parse_detail_page(detail_content, detail_url, browser)
                     if detail_data:
                         detail_data['url'] = detail_url
-                        save_announcement(detail_data, category_key=cat_key, db=db, download_docs=args.download)
+                        save_announcement(detail_data, category_key=cat_key, db=db, download_docs=args.download, no_md=args.no_md)
 
                 # Rate limiting
                 time.sleep(1)

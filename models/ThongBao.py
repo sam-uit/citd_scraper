@@ -14,6 +14,7 @@ class ThongBao:
     content_md_path: str
     original_url: str
     assets: List[str] = field(default_factory=list)
+    content: str = "" # Full markdown content for regeneration
     created_at: str = field(default_factory=lambda: datetime.now().isoformat()) # Scraped time
 
     def to_dict(self):
@@ -27,6 +28,7 @@ class ThongBao:
             "content_md_path": self.content_md_path,
             "original_url": self.original_url,
             "assets": self.assets,
+            "content": self.content,
             "created_at": self.created_at
         }
     
@@ -43,6 +45,7 @@ class ThongBao:
             content_md_path=data.get("content_md_path", ""),
             original_url=data.get("original_url", ""),
             assets=data.get("assets", []),
+            content=data.get("content", ""),
             created_at=data.get("created_at", datetime.now().isoformat())
         )
     

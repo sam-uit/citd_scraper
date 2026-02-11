@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Configuration
 DATA_DIR = "thongbao"
-ASSETS_DIR = os.path.join(DATA_DIR, "assets")
+ASSETS_DOCS_DIR = os.path.join(DATA_DIR, "assets", "documents")
 CATEGORIES = {
     "hoc-vu": "Thông báo học vụ",
     "chung": "Thông báo chung"
@@ -194,7 +194,7 @@ def main():
                     # Assets are likely still in DATA_DIR/assets or moved?
                     # Scraper says: ASSETS_DIR = DATA_DIR/assets
                     # But metadata stores basename.
-                    asset_path = os.path.join(ASSETS_DIR, asset)
+                    asset_path = os.path.join(ASSETS_DOCS_DIR, asset)
                     # In streamlit, we can provide download button
                     if os.path.exists(asset_path):
                         with open(asset_path, "rb") as f:
