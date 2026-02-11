@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import argparse
 # from curl_cffi import requests as crequests # Removed
 from DrissionPage import ChromiumPage, ChromiumOptions
 from lxml import html
@@ -372,9 +373,18 @@ def save_announcement(data, category_key="hoc-vu"):
     print(f"Saved to {cat_info['dir']}: {data['title']}")
 
 def main():
-    print("Starting CITD Scraper...")
+    parser = argparse.ArgumentParser(description="Scrape CITD announcements.")
+    parser.add_argument("--all", action="store_true", help="Scrape all pages (default: page 1 only)")
+    args = parser.parse_args()
 
-    max_pages = 5 # Safety limit for now, user can increase
+    print("Starting CITD Scraper...")
+    
+    if args.all:
+        print("Mode: Scraping ALL pages.")
+        max_pages = 1000 # High limit to scrape everything until no content
+    else:
+        print("Mode: Scraping first page ONLY.")
+        max_pages = 1
 
     for cat_key, cat_info in CATEGORIES.items():
         print(f"Scraping Category: {cat_info['name']}...")

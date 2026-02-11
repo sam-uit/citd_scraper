@@ -24,6 +24,11 @@ To scrape the latest announcements:
 uv run python scraper.py
 ```
 
+To scrape **all** pages (deep scrape):
+```bash
+uv run python scraper.py --all
+```
+
 *Note: If the scraper encounters Cloudflare protection (403 Forbidden), it will attempt to use `curl_cffi` to bypass it. If that fails, you can generate data from local HTML files (if available) using:*
 
 ```bash
