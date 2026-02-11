@@ -195,24 +195,10 @@ def main():
                 st.divider()
                 
                 # Content
-                # Load MD content
-                # md path is relative strictly to category dir in new structure? 
-                # In scraper we did: os.path.join(save_dir, md_name)
-                # save_dir was DATA_DIR/cat_dir
-                # content_md_path in json is basename.
-                # So we need to join DATA_DIR, cat_key, and basename.
-                
-                cat_info = settings.CATEGORIES.get(item['category_key'])
-                if cat_info:
-                    md_path = os.path.join(settings.DATA_DIR, cat_info['dir'], item['content_md_path'])
-                    if os.path.exists(md_path):
-                        with open(md_path, 'r', encoding='utf-8') as f:
-                            md_content = f.read()
-                            st.markdown(md_content)
-                    else:
-                        st.error(f"Content file not found at {md_path}")
+                if item.get('content'):
+                    st.markdown(item['content'])
                 else:
-                    st.error(f"Category info missing for {item['category_key']}")
+                    st.info("No content available.")
                     
                 # Assets
                 if item.get('assets'):
