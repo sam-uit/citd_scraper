@@ -1,5 +1,5 @@
 import argparse
-from services.scraper_service import run_scraper
+from services.scraper import run_scraper
 
 def main():
     parser = argparse.ArgumentParser(description="Scrape CITD announcements.")
