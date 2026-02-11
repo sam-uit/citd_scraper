@@ -8,6 +8,7 @@ from settings import settings
 
 st.set_page_config(page_title="CITD Announcements", layout="wide")
 
+# TODO: Language options
 
 def load_data():
     data = []
