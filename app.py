@@ -167,10 +167,10 @@ def main():
                 item = st.session_state.selected_item
                 
                 st.markdown(f"## {item['title']}")
-                st.caption(f"**Date:** {item['date_obj'].strftime('%d/%m/%Y %H:%M')} | **Author:** {item['author']} | **Category:** {item['category_name']}")
+                st.caption(f"- **Date:** {item['date_obj'].strftime('%d/%m/%Y %H:%M')} | **Author:** {item['author']} | **Category:** {item['category_name']}")
                 
                 # Tagging Interface
-                st.divider()
+                # st.divider()
                 st.markdown("### Tags")
                 
                 current_tags = item.get('tags', [])
