@@ -140,7 +140,7 @@ def main():
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        st.subheader("List")
+        st.subheader("Thông Báo")
         for item in filtered_data:
             # Format date for display
             date_display = item['date_obj'].strftime("%d/%m/%Y")
