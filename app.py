@@ -137,7 +137,7 @@ def main():
         st.session_state.selected_item = None
 
     # Two columns layout: List and Detail
-    col1, col2 = st.columns([1, 2])
+    col1, col2 = st.columns([1, 1], gap="medium", border=True)
     
     with col1:
         st.subheader("Thông Báo")
