@@ -165,15 +165,18 @@ def main():
         with st.container(height=900):
             if st.session_state.selected_item:
                 item = st.session_state.selected_item
+                current_tags = item.get('tags', [])
                 
                 st.markdown(f"## {item['title']}")
                 st.caption(f"- **Date:** {item['date_obj'].strftime('%d/%m/%Y %H:%M')} | **Author:** {item['author']} | **Category:** {item['category_name']}")
-                
+
+                if current_tags:
+                    # TODO: Make each tag a button to filter related thongbao those have the same tag.
+                    st.write("[", ", ".join(current_tags), "]")
                 # Tagging Interface
                 # st.divider()
-                st.markdown("### Tags")
+                # st.markdown("### Tags")
                 
-                current_tags = item.get('tags', [])
                 
                 # Streamlit re-runs on interaction, so input needs to handle state carefully.
                 # We use a key based on item id.
@@ -182,14 +185,12 @@ def main():
                     value=", ".join(current_tags), 
                     key=f"tags_input_{item['id']}"
                 )
-                
+
                 if st.button("Update Tags", key=f"btn_update_{item['id']}"):
                     new_tags_list = [t.strip() for t in new_tags_str.split(",") if t.strip()]
                     if new_tags_list != current_tags:
                         save_tags(item, new_tags_list)
                         st.rerun()
-
-                st.write("Current tags:", ", ".join(current_tags) if current_tags else "No tags")
 
                 st.divider()
                 
