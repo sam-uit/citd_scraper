@@ -149,9 +149,9 @@ def main():
             # Simple heuristic for icon since we don't have explicit type without lookup
             cat_label = "📚" if "học vụ" in item['category_name'].lower() else "🔔"
             label = f"{item['title']}\n\n**{date_display}** | {cat_label} {item['category_name']}"
-            if st.button(label, key=item['id'], use_container_width=True):
+            if st.button(label, key=item['id'], width="stretch", type="tertiary"):
                 st.session_state.selected_item = item
-            st.divider()
+            # st.divider()
 
     with col2:
         if st.session_state.selected_item:
