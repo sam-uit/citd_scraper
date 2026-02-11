@@ -148,7 +148,7 @@ def main():
             # Card-like button
             # Simple heuristic for icon since we don't have explicit type without lookup
             cat_label = "📚" if "học vụ" in item['category_name'].lower() else "🔔"
-            label = f"**{date_display}** | {cat_label} {item['category_name']}\n\n{item['title']}"
+            label = f"{item['title']}\n\n**{date_display}** | {cat_label} {item['category_name']}"
             if st.button(label, key=item['id'], use_container_width=True):
                 st.session_state.selected_item = item
 
