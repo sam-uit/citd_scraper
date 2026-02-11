@@ -194,6 +194,7 @@ def main():
 
                 st.divider()
                 
+                # TODO: Fix the failure to display images issue.
                 # Content
                 if item.get('content'):
                     st.markdown(item['content'])
