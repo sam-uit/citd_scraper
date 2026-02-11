@@ -137,98 +137,101 @@ def main():
         st.session_state.selected_item = None
 
     # Two columns layout: List and Detail
-    col1, col2 = st.columns([1, 1], gap="medium", border=True)
+    col1, col2 = st.columns([1, 1], gap="medium", border=False)
     
     with col1:
         st.subheader("Thông Báo")
-        for item in filtered_data:
-            # Format date for display
-            date_display = item['date_obj'].strftime("%d/%m/%Y")
-            
-            # Card-like button
-            # Simple heuristic for icon since we don't have explicit type without lookup
-            cat_icon = "📚" if "học vụ" in item['category_name'].lower() else "🔔"
-            # label = f"{item['title']}\n\n**{date_display}** | {item['category_name']}"
-            label = f"{item['title']}"
-            if st.button(
-                label,
-                key=item['id'],
-                width="content",
-                type="tertiary",
-                icon = cat_icon):
-                st.session_state.selected_item = item
-            # st.divider()
+        with st.container(height=900):
+            for item in filtered_data:
+                # Format date for display
+                date_display = item['date_obj'].strftime("%d/%m/%Y")
+                
+                # Card-like button
+                # Simple heuristic for icon since we don't have explicit type without lookup
+                cat_icon = "📚" if "học vụ" in item['category_name'].lower() else "🔔"
+                # label = f"{item['title']}\n\n**{date_display}** | {item['category_name']}"
+                label = f"{item['title']}"
+                if st.button(
+                    label,
+                    key=item['id'],
+                    width="content",
+                    type="tertiary",
+                    icon = cat_icon):
+                    st.session_state.selected_item = item
+                # st.divider()
 
     with col2:
-        if st.session_state.selected_item:
-            item = st.session_state.selected_item
-            
-            st.markdown(f"## {item['title']}")
-            st.caption(f"**Date:** {item['date_obj'].strftime('%d/%m/%Y %H:%M')} | **Author:** {item['author']} | **Category:** {item['category_name']}")
-            
-            # Tagging Interface
-            st.divider()
-            st.markdown("### Tags")
-            
-            current_tags = item.get('tags', [])
-            
-            # Streamlit re-runs on interaction, so input needs to handle state carefully.
-            # We use a key based on item id.
-            new_tags_str = st.text_input(
-                "Edit Tags (comma separated)", 
-                value=", ".join(current_tags), 
-                key=f"tags_input_{item['id']}"
-            )
-            
-            if st.button("Update Tags", key=f"btn_update_{item['id']}"):
-                 new_tags_list = [t.strip() for t in new_tags_str.split(",") if t.strip()]
-                 if new_tags_list != current_tags:
-                      save_tags(item, new_tags_list)
-                      st.rerun()
-
-            st.write("Current tags:", ", ".join(current_tags) if current_tags else "No tags")
-
-            st.divider()
-            
-            # Content
-            # Load MD content
-            # md path is relative strictly to category dir in new structure? 
-            # In scraper we did: os.path.join(save_dir, md_name)
-            # save_dir was DATA_DIR/cat_dir
-            # content_md_path in json is basename.
-            # So we need to join DATA_DIR, cat_key, and basename.
-            
-            cat_info = settings.CATEGORIES.get(item['category_key'])
-            if cat_info:
-                 md_path = os.path.join(settings.DATA_DIR, cat_info['dir'], item['content_md_path'])
-                 if os.path.exists(md_path):
-                     with open(md_path, 'r', encoding='utf-8') as f:
-                         md_content = f.read()
-                         st.markdown(md_content)
-                 else:
-                     st.error(f"Content file not found at {md_path}")
-            else:
-                 st.error(f"Category info missing for {item['category_key']}")
+        st.subheader("Nội Dung")
+        with st.container(height=900):
+            if st.session_state.selected_item:
+                item = st.session_state.selected_item
                 
-            # Assets
-            if item.get('assets'):
-                st.markdown("### Attached Files")
-                for asset in item['assets']:
-                    # Assets are likely still in DATA_DIR/assets or moved?
-                    # Scraper says: ASSETS_DIR = DATA_DIR/assets
-                    # But metadata stores basename.
-                    asset_path = os.path.join(settings.ASSETS_DOCS_DIR, asset)
-                    # In streamlit, we can provide download button
-                    if os.path.exists(asset_path):
-                        with open(asset_path, "rb") as f:
-                             st.download_button(
-                                 label=f"Download {asset}",
-                                 data=f,
-                                 file_name=asset,
-                                 mime="application/octet-stream"
-                             )
-        else:
-            st.info("Select an announcement from the list to view details.")
+                st.markdown(f"## {item['title']}")
+                st.caption(f"**Date:** {item['date_obj'].strftime('%d/%m/%Y %H:%M')} | **Author:** {item['author']} | **Category:** {item['category_name']}")
+                
+                # Tagging Interface
+                st.divider()
+                st.markdown("### Tags")
+                
+                current_tags = item.get('tags', [])
+                
+                # Streamlit re-runs on interaction, so input needs to handle state carefully.
+                # We use a key based on item id.
+                new_tags_str = st.text_input(
+                    "Edit Tags (comma separated)", 
+                    value=", ".join(current_tags), 
+                    key=f"tags_input_{item['id']}"
+                )
+                
+                if st.button("Update Tags", key=f"btn_update_{item['id']}"):
+                    new_tags_list = [t.strip() for t in new_tags_str.split(",") if t.strip()]
+                    if new_tags_list != current_tags:
+                        save_tags(item, new_tags_list)
+                        st.rerun()
+
+                st.write("Current tags:", ", ".join(current_tags) if current_tags else "No tags")
+
+                st.divider()
+                
+                # Content
+                # Load MD content
+                # md path is relative strictly to category dir in new structure? 
+                # In scraper we did: os.path.join(save_dir, md_name)
+                # save_dir was DATA_DIR/cat_dir
+                # content_md_path in json is basename.
+                # So we need to join DATA_DIR, cat_key, and basename.
+                
+                cat_info = settings.CATEGORIES.get(item['category_key'])
+                if cat_info:
+                    md_path = os.path.join(settings.DATA_DIR, cat_info['dir'], item['content_md_path'])
+                    if os.path.exists(md_path):
+                        with open(md_path, 'r', encoding='utf-8') as f:
+                            md_content = f.read()
+                            st.markdown(md_content)
+                    else:
+                        st.error(f"Content file not found at {md_path}")
+                else:
+                    st.error(f"Category info missing for {item['category_key']}")
+                    
+                # Assets
+                if item.get('assets'):
+                    st.markdown("### Attached Files")
+                    for asset in item['assets']:
+                        # Assets are likely still in DATA_DIR/assets or moved?
+                        # Scraper says: ASSETS_DIR = DATA_DIR/assets
+                        # But metadata stores basename.
+                        asset_path = os.path.join(settings.ASSETS_DOCS_DIR, asset)
+                        # In streamlit, we can provide download button
+                        if os.path.exists(asset_path):
+                            with open(asset_path, "rb") as f:
+                                st.download_button(
+                                    label=f"Download {asset}",
+                                    data=f,
+                                    file_name=asset,
+                                    mime="application/octet-stream"
+                                )
+            else:
+                st.info("Select an announcement from the list to view details.")
 
 if __name__ == "__main__":
     main()
