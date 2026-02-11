@@ -38,7 +38,11 @@ To **download document attachments** (PDF, DOC, etc.):
 ```bash
 uv run python scraper.py --download
 ```
-*Note: Images are always downloaded automatically.*
+
+To **scrape a specific number of pages** (e.g., 2 newest pages):
+```bash
+uv run python scraper.py -p 2
+```
 
 To run in **headless mode** (experimental, may be blocked by Cloudflare):
 ```bash

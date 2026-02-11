@@ -3,31 +3,31 @@
         "id": "thong-bao-v-v-xac-nhan-dang-ky-hoc-phan-hk2-2025-2026",
         "date": "2026-02-09-11-39-35",
         "type": "Thông báo học vụ",
-        "scraped_time": "2026-02-11T19:31:19.708264"
+        "scraped_time": "2026-02-11T19:32:20.906600"
     },
     "thong-bao-cac-moc-thoi-gian-can-luu-y-cho-sinh-vien-he-dao-tao-tu-xa-trong-hk2-2025-2026": {
         "id": "thong-bao-cac-moc-thoi-gian-can-luu-y-cho-sinh-vien-he-dao-tao-tu-xa-trong-hk2-2025-2026",
         "date": "2026-02-06-11-18-05",
         "type": "Thông báo học vụ",
-        "scraped_time": "2026-02-11T19:31:21.276762"
+        "scraped_time": "2026-02-11T19:32:22.521319"
     },
     "thong-bao-ve-viec-ke-hoach-hoc-ky-2-nam-2025-2026": {
         "id": "thong-bao-ve-viec-ke-hoach-hoc-ky-2-nam-2025-2026",
         "date": "2026-02-05-14-26-58",
         "type": "Thông báo học vụ",
-        "scraped_time": "2026-02-11T19:31:22.999587"
+        "scraped_time": "2026-02-11T19:32:24.242307"
     },
     "kiem-tra-thong-tin-ca-nhan-trong-danh-sach-dang-ky-xet-tot-nghiep-theo-thong-bao-ngay-31-10-2025": {
         "id": "kiem-tra-thong-tin-ca-nhan-trong-danh-sach-dang-ky-xet-tot-nghiep-theo-thong-bao-ngay-31-10-2025",
         "date": "2026-02-04-17-39-23",
         "type": "Thông báo học vụ",
-        "scraped_time": "2026-02-11T19:31:24.587401"
+        "scraped_time": "2026-02-11T19:32:25.847750"
     },
     "thong-bao-thoi-gian-thuc-hien-khoa-luan-tot-nghiep-hk1-nam-hoc-2025-2026": {
         "id": "thong-bao-thoi-gian-thuc-hien-khoa-luan-tot-nghiep-hk1-nam-hoc-2025-2026",
         "date": "2026-01-29-17-49-42",
         "type": "Thông báo học vụ",
-        "scraped_time": "2026-02-11T19:31:26.284418"
+        "scraped_time": "2026-02-11T19:32:27.615634"
     },
     "thong-bao-luu-y-ve-viec-ky-ten-cac-mon-do-an-tieu-luan-hk1-2025-2026": {
         "id": "thong-bao-luu-y-ve-viec-ky-ten-cac-mon-do-an-tieu-luan-hk1-2025-2026",
@@ -1096,5 +1096,149 @@
         "date": "2022-12-05-16-46-49",
         "type": "Thông báo học vụ",
         "scraped_time": "2026-02-11T19:31:44.608273"
+    },
+    "thong-bao-thoi-gian-thi-ket-thuc-hoc-ky-i-nam-hoc-2022-2023": {
+        "id": "thong-bao-thoi-gian-thi-ket-thuc-hoc-ky-i-nam-hoc-2022-2023",
+        "date": "2022-10-28-17-24-55",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:31:46.231046"
+    },
+    "ke-hoach-dao-tao-nam-hoc-2022-2023": {
+        "id": "ke-hoach-dao-tao-nam-hoc-2022-2023",
+        "date": "2022-09-30-14-36-05",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:31:58.619965"
+    },
+    "lich-hoc-hoc-ky-1-nam-hoc-2022-2023": {
+        "id": "lich-hoc-hoc-ky-1-nam-hoc-2022-2023",
+        "date": "2022-09-12-10-00-06",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:00.195976"
+    },
+    "thong-bao-quy-dinh-lich-thi-cuoi-hoc-ky-3-nam-hoc-2021-2022": {
+        "id": "thong-bao-quy-dinh-lich-thi-cuoi-hoc-ky-3-nam-hoc-2021-2022",
+        "date": "2022-08-26-18-13-35",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:01.783021"
+    },
+    "ve-viec-dang-ky-hoan-thi": {
+        "id": "ve-viec-dang-ky-hoan-thi",
+        "date": "2022-08-24-10-50-49",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:03.407210"
+    },
+    "lich-thi-het-mon-hoc-ky-3-nam-hoc-2021-2022": {
+        "id": "lich-thi-het-mon-hoc-ky-3-nam-hoc-2021-2022",
+        "date": "2022-08-15-18-12-10",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:04.991629"
+    },
+    "ve-viec-dang-ky-thi-lai-tot-nghiep-cho-cac-ban-khoa-2018": {
+        "id": "ve-viec-dang-ky-thi-lai-tot-nghiep-cho-cac-ban-khoa-2018",
+        "date": "2022-06-29-09-38-52",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:06.668547"
+    },
+    "thong-bao-ve-viec-thay-doi-lich-hoc": {
+        "id": "thong-bao-ve-viec-thay-doi-lich-hoc",
+        "date": "2022-06-13-10-12-43",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:08.229208"
+    },
+    "thu-moi-le-khai-giang-lop-cu-nhan-cong-nghe-thong-tin-he-tu-xa-dot-3-2022": {
+        "id": "thu-moi-le-khai-giang-lop-cu-nhan-cong-nghe-thong-tin-he-tu-xa-dot-3-2022",
+        "date": "2022-06-06-16-11-22",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:10.465317"
+    },
+    "thong-bao-ve-thoi-gian-lam-le-tot-nghiep-va-so-do-cho-ngoi": {
+        "id": "thong-bao-ve-thoi-gian-lam-le-tot-nghiep-va-so-do-cho-ngoi",
+        "date": "2022-06-06-14-10-06",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:12.067545"
+    },
+    "lich-hoc-hoc-ky-3-nam-2021-2022": {
+        "id": "lich-hoc-hoc-ky-3-nam-2021-2022",
+        "date": "2022-05-30-11-29-18",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:13.669988"
+    },
+    "thong-bao-ve-viec-dang-ky-tham-du-le-tot-nghiep-thang-6-2022": {
+        "id": "thong-bao-ve-viec-dang-ky-tham-du-le-tot-nghiep-thang-6-2022",
+        "date": "2022-05-05-14-44-35",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:15.218350"
+    },
+    "ve-viec-nghi-hoc-mon-nhap-mon-mang-may-tinh-lop-hc-k2021-2-cn2-k2021-2": {
+        "id": "ve-viec-nghi-hoc-mon-nhap-mon-mang-may-tinh-lop-hc-k2021-2-cn2-k2021-2",
+        "date": "2021-12-08-09-10-11",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:16.778012"
+    },
+    "thong-bao-ve-viec-to-chuc-thi-cuoi-ky-nam-hoc-2021-2022-theo-phuong-thuc-truc-tuyen": {
+        "id": "thong-bao-ve-viec-to-chuc-thi-cuoi-ky-nam-hoc-2021-2022-theo-phuong-thuc-truc-tuyen",
+        "date": "2021-12-06-11-42-13",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:29.341087"
+    },
+    "thong-bao-ve-viec-to-chuc-thi-cuoi-ky-nam-hoc-2020-2021-theo-phuong-thuc-truc-tuyen": {
+        "id": "thong-bao-ve-viec-to-chuc-thi-cuoi-ky-nam-hoc-2020-2021-theo-phuong-thuc-truc-tuyen",
+        "date": "2021-08-06-14-10-58",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:30.999782"
+    },
+    "diem-thi-tot-nghiep-cu-nhan-tu-xa-khoa-thi-ngay-29-11-2020": {
+        "id": "diem-thi-tot-nghiep-cu-nhan-tu-xa-khoa-thi-ngay-29-11-2020",
+        "date": "2020-12-11-17-00-24",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:32.600530"
+    },
+    "danh-sach-sinh-vien-du-dieu-kien-thi-tot-nghiep": {
+        "id": "danh-sach-sinh-vien-du-dieu-kien-thi-tot-nghiep",
+        "date": "2020-11-24-10-54-25",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:34.209355"
+    },
+    "thong-bao-ve-lich-thi-tot-nghiep-ngay-29-11-2020": {
+        "id": "thong-bao-ve-lich-thi-tot-nghiep-ngay-29-11-2020",
+        "date": "2020-11-23-15-29-22",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:35.740805"
+    },
+    "thong-bao-ve-viec-dang-ky-thi-tot-nghiep-dot-thang-10-2020": {
+        "id": "thong-bao-ve-viec-dang-ky-thi-tot-nghiep-dot-thang-10-2020",
+        "date": "2020-09-10-07-57-11",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:37.457591"
+    },
+    "thong-bao-xet-tot-nghiep": {
+        "id": "thong-bao-xet-tot-nghiep",
+        "date": "2020-08-05-10-40-41",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:39.053675"
+    },
+    "thong-bao-ve-viec-xem-lich-hoc-cac-lop-cu-nhan-tu-ngay-13-7-2020": {
+        "id": "thong-bao-ve-viec-xem-lich-hoc-cac-lop-cu-nhan-tu-ngay-13-7-2020",
+        "date": "2020-07-10-16-17-26",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:40.976962"
+    },
+    "lich-hoc-ap-dung-tu-ngay-22-06-2020": {
+        "id": "lich-hoc-ap-dung-tu-ngay-22-06-2020",
+        "date": "2020-06-22-09-00-02",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:42.684465"
+    },
+    "lich-hoc-ap-dung-tu-ngay-15-06-2020": {
+        "id": "lich-hoc-ap-dung-tu-ngay-15-06-2020",
+        "date": "2020-06-15-07-55-19",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:44.306100"
+    },
+    "thong-bao-lich-thi-ket-thuc-mon-thang-06-2020": {
+        "id": "thong-bao-lich-thi-ket-thuc-mon-thang-06-2020",
+        "date": "2020-06-08-09-01-31",
+        "type": "Thông báo học vụ",
+        "scraped_time": "2026-02-11T19:32:45.958481"
     }
 }

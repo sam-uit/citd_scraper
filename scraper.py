@@ -512,6 +512,7 @@ def main():
     parser.add_argument("--pull", action="store_true", help="Force refresh all announcements")
     parser.add_argument("--headless", action="store_true", help="Run in headless mode (no UI)")
     parser.add_argument("--download", action="store_true", help="Download document attachments (PDF, DOC, etc.)")
+    parser.add_argument("-p", "--pages", type=int, default=1, help="Number of pages to scrape (default: 1)")
     args = parser.parse_args()
 
     print("Starting CITD Scraper...")
@@ -528,6 +529,9 @@ def main():
     if args.all:
         print("Mode: Scraping ALL pages.")
         max_pages = 1000 # High limit to scrape everything until no content
+    elif args.pages > 1:
+        print(f"Mode: Scraping first {args.pages} pages.")
+        max_pages = args.pages
     else:
         print("Mode: Scraping first page ONLY.")
         max_pages = 1
