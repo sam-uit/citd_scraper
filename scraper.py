@@ -459,7 +459,7 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False)
         # Standard: Just list downloadable links.
         
         if data.get('asset_links'):
-            f.write("\n\n## Attachments\n")
+            f.write("\n\n## Attachments\n\n")
             for asset_url in data.get('asset_links'):
                  # Fix relative URLs if needed
                 if not asset_url.startswith('http'):
