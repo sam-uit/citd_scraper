@@ -243,11 +243,19 @@ def parse_detail_page(content, url):
                         # So relative path is `../../assets/images/filename`.
                         
                         filename = os.path.basename(local_path)
-                        rel_path = f"../../assets/images/{filename}"
+                        rel_path = f"../assets/images/{filename}"
                         img.set('src', rel_path)
                         # Also replace srcset if exists to prevent browser loading original
                         if img.get('srcset'):
                             del img.attrib['srcset']
+                        
+                        # Remove parent <a> tag if exists (to remove original link)
+                        parent = img.getparent()
+                        if parent is not None and parent.tag == 'a':
+                            # To replace 'parent' (<a>) with 'img', we need the grandparent
+                            grandparent = parent.getparent()
+                            if grandparent is not None:
+                                grandparent.replace(parent, img)
                         
                         local_assets_map[src] = filename
 
@@ -464,8 +472,8 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False)
                 
                 if download_docs and os.path.exists(local_path):
                      # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
-                     # ../../assets/documents/filename
-                     rel_path = f"../../assets/documents/{filename}"
+                     # ../assets/documents/filename
+                     rel_path = f"../assets/documents/{filename}"
                      f.write(f"- [{filename}]({rel_path}) (Local) | [Original]({asset_url})\n")
                 else:
                      f.write(f"- [{filename}]({asset_url}) (Online)\n")
