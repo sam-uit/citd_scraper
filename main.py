@@ -1,6 +1,4 @@
-def main():
-    print("Hello from citd-scraper!")
-
+from services.scraper_service import main
 
 if __name__ == "__main__":
     main()
