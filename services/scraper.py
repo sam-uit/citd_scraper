@@ -16,10 +16,12 @@ from settings import settings
 
 # Create directories
 os.makedirs(settings.DATA_DIR, exist_ok=True)
-os.makedirs(settings.ASSETS_IMAGES_DIR, exist_ok=True)
-os.makedirs(settings.ASSETS_DOCS_DIR, exist_ok=True)
 for cat in settings.CATEGORIES.values():
-    os.makedirs(os.path.join(settings.DATA_DIR, cat["dir"]), exist_ok=True)
+    cat_dir = os.path.join(settings.DATA_DIR, cat["dir"])
+    os.makedirs(cat_dir, exist_ok=True)
+    # Create assets dir for each category
+    os.makedirs(os.path.join(cat_dir, settings.ASSETS_DIR_NAME, "images"), exist_ok=True)
+    os.makedirs(os.path.join(cat_dir, settings.ASSETS_DIR_NAME, "documents"), exist_ok=True)
 
 # Database Management
 def load_db():
@@ -112,7 +114,7 @@ def parse_list_page(content, is_local=False):
 
     return announcements
 
-def parse_detail_page(content, url, browser):
+def parse_detail_page(content, url, browser, assets_img_dir=None):
     tree = html.fromstring(content)
 
     try:
@@ -137,39 +139,36 @@ def parse_detail_page(content, url, browser):
 
             # 1. Process Images
             # Find all img tags, download content, and replace src with local relative path
-            for img in content_div.xpath('.//img'):
-                src = img.get('src')
-                if src:
-                    # Fix relative URLs
-                    if not src.startswith('http'):
-                        src = urljoin(settings.BASE_URL, src)
-                        
-                    # Download image
-                    local_path = download_resource(src, settings.ASSETS_IMAGES_DIR, browser)
-                    if local_path:
-                        # Compute relative path for Markdown (thongbao/hoc-vu/.. -> thongbao/assets/images/..)
-                        # We save MD in thongbao/hoc-vu/. So rel path is ../../assets/images/filename
-                        # Actually simpler: just use relative path from the DATA_DIR root if we view from there?
-                        # But MD is viewed relative to MD file.
-                        # MD is in `thongbao/category/`. Assets in `thongbao/assets/images/`.
-                        # So relative path is `../../assets/images/filename`.
-                        
-                        filename = os.path.basename(local_path)
-                        rel_path = f"../assets/images/{filename}"
-                        img.set('src', rel_path)
-                        # Also replace srcset if exists to prevent browser loading original
-                        if img.get('srcset'):
-                            del img.attrib['srcset']
-                        
-                        # Remove parent <a> tag if exists (to remove original link)
-                        parent = img.getparent()
-                        if parent is not None and parent.tag == 'a':
-                            # To replace 'parent' (<a>) with 'img', we need the grandparent
-                            grandparent = parent.getparent()
-                            if grandparent is not None:
-                                grandparent.replace(parent, img)
-                        
-                        local_assets_map[src] = filename
+            # assets_img_dir should be provided, or we default to a temp location?
+            # actually we need to download to the specific category folder.
+            # parsing happens BEFORE saving, so we might need to pass the target dir.
+            
+            if assets_img_dir:
+                 for img in content_div.xpath('.//img'):
+                    src = img.get('src')
+                    if src:
+                        # Fix relative URLs
+                        if not src.startswith('http'):
+                            src = urljoin(settings.BASE_URL, src)
+                            
+                        # Download image
+                        local_path = download_resource(src, assets_img_dir, browser)
+                        if local_path:
+                            filename = os.path.basename(local_path)
+                            # Relative path for Markdown: ./assets/images/filename
+                            rel_path = f"./assets/images/{filename}"
+                            img.set('src', rel_path)
+                            
+                            if img.get('srcset'):
+                                del img.attrib['srcset']
+                            
+                            parent = img.getparent()
+                            if parent is not None and parent.tag == 'a':
+                                grandparent = parent.getparent()
+                                if grandparent is not None:
+                                    grandparent.replace(parent, img)
+                            
+                            local_assets_map[src] = filename
 
             # Remove redundant "Download" buttons from wp-block-file
             for btn in content_div.xpath('.//a[contains(@class, "wp-block-file__button")]'):
@@ -277,6 +276,19 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
 
     cat_info = settings.CATEGORIES.get(category_key, settings.CATEGORIES["hoc-vu"])
     save_dir = os.path.join(settings.DATA_DIR, cat_info["dir"])
+    
+    # Define asset directories for this category
+    assets_dir = os.path.join(save_dir, settings.ASSETS_DIR_NAME)
+    assets_docs_dir = os.path.join(assets_dir, "documents")
+    # Images are handled in parse_detail_page, so we assume they are already there or passed args?
+    # Wait, parse_detail_page downloads images. It needs to know where.
+    # We need to pass assets_img_dir to parse_detail_page. 
+    # But parse_detail_page is called BEFORE save_announcement in the loop.
+    # So we need to compute dirs in the main loop and pass to parse_detail_page.
+    
+    # We will assume parse_detail_page was called with correct dir.
+    
+    # Filenames
 
     # Filenames
     base_name = f"{formatted_date}-{slug}"
@@ -293,7 +305,7 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
             if not asset_url.startswith('http'):
                 asset_url = urljoin(settings.BASE_URL, asset_url)
                 
-            local_path = download_resource(asset_url, settings.ASSETS_DOCS_DIR, browser)
+            local_path = download_resource(asset_url, assets_docs_dir, browser)
             if local_path:
                 local_assets.append(local_path)
 
@@ -316,12 +328,11 @@ def save_announcement(data, category_key="hoc-vu", db=None, download_docs=False,
                     filename = os.path.basename(urlparse(asset_url).path)
                     
                     # Check if we have it locally (either just downloaded or existed)
-                    local_path = os.path.join(settings.ASSETS_DOCS_DIR, filename)
+                    local_path = os.path.join(assets_docs_dir, filename)
                     
                     if download_docs and os.path.exists(local_path):
-                         # Rel path from save_dir (thongbao/cat) to ASSETS_DOCS_DIR (thongbao/assets/documents)
-                         # ../assets/documents/filename
-                         rel_path = f"../assets/documents/{filename}"
+                         # Rel path: ./assets/documents/filename
+                         rel_path = f"./{settings.ASSETS_DIR_NAME}/documents/{filename}"
                          f.write(f"- [{filename}]({rel_path}) (Local) | [Original]({asset_url})\n")
                     else:
                          f.write(f"- [{filename}]({asset_url}) (Online)\n")
@@ -408,8 +419,8 @@ def run_scraper(args):
                                 for asset in data.get('assets'):
                                     # Local asset path
                                     # md is in thongbao/cat/
-                                    # assets in thongbao/assets/documents/
-                                    rel_path = f"../assets/documents/{asset}"
+                                    # assets in thongbao/cat/assets/documents/
+                                    rel_path = f"./{settings.ASSETS_DIR_NAME}/documents/{asset}"
                                     # We don't have original URL easily for assets unless preserved in data?
                                     # ThongBao obj stores 'assets' as list of strings (filenames).
                                     # The original 'asset_links' might be lost if not stored in ThongBao model!
@@ -490,7 +501,11 @@ def run_scraper(args):
                 detail_url = item['url']
                 detail_content = fetch_url(detail_url, browser)
                 if detail_content:
-                    detail_data = parse_detail_page(detail_content, detail_url, browser)
+                    # Determine assets dir for this category
+                    cat_dir = os.path.join(settings.DATA_DIR, cat_info['dir'])
+                    assets_img_dir = os.path.join(cat_dir, settings.ASSETS_DIR_NAME, "images")
+                    
+                    detail_data = parse_detail_page(detail_content, detail_url, browser, assets_img_dir=assets_img_dir)
                     if detail_data:
                         detail_data['url'] = detail_url
                         save_announcement(detail_data, category_key=cat_key, db=db, download_docs=args.download, no_md=args.no_md)
