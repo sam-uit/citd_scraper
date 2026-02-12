@@ -16,7 +16,6 @@ CATEGORIES = {
 }
 
 DATA_DIR = "thongbao"
-ASSETS_DIR = os.path.join(DATA_DIR, "assets")
-ASSETS_IMAGES_DIR = os.path.join(ASSETS_DIR, "images")
-ASSETS_DOCS_DIR = os.path.join(ASSETS_DIR, "documents")
+ASSETS_DIR_NAME = "assets"
+# ASSETS_IMAGES_DIR and ASSETS_DOCS_DIR are now relative to category dir, handled in scraper
 DB_FILE = os.path.join(DATA_DIR, "thongbao.json")
