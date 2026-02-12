@@ -8,7 +8,50 @@ from settings import settings
 
 st.set_page_config(page_title="CITD Announcements", layout="wide")
 
+import base64
+import re
+
 # TODO: Language options
+
+def process_markdown_images(markdown_content, base_path):
+    """
+    Finds ./assets/images/... links in markdown and replaces them with base64 data URIs.
+    """
+    if not markdown_content:
+        return ""
+        
+    def replace_image(match):
+        alt_text = match.group(1)
+        image_path = match.group(2)
+        
+        # Check if local relative path
+        if image_path.startswith("./assets/"):
+            # Resolve full path: base_path is category dir
+            # image_path is ./assets/images/filename
+            full_path = os.path.join(base_path, image_path.replace("./", ""))
+            
+            if os.path.exists(full_path):
+                try:
+                    with open(full_path, "rb") as f:
+                        data = f.read()
+                        encoded = base64.b64encode(data).decode()
+                        # Determine mime type simple
+                        ext = os.path.splitext(full_path)[1].lower()
+                        mime = "image/png" if ext == ".png" else "image/jpeg"
+                        if ext == ".svg": mime = "image/svg+xml"
+                        
+                        return f"![{alt_text}](data:{mime};base64,{encoded})"
+                except Exception as e:
+                    print(f"Error loading image {full_path}: {e}")
+                    return match.group(0) # Return original on error
+            else:
+                 return match.group(0)
+        return match.group(0)
+
+    # Regex for ![](path)
+    # Group 1: alt text, Group 2: path
+    pattern = r'!\[(.*?)\]\((.*?)\)'
+    return re.sub(pattern, replace_image, markdown_content)
 
 def load_data():
     data = []
@@ -197,7 +240,13 @@ def main():
                 # TODO: Fix the failure to display images issue.
                 # Content
                 if item.get('content'):
-                    st.markdown(item['content'])
+                    # Preprocess content for local images
+                    # Need base path: DATA_DIR/cat_dir
+                    cat_dir = settings.CATEGORIES[item['category_key']]['dir']
+                    base_path = os.path.join(settings.DATA_DIR, cat_dir)
+                    
+                    processed_content = process_markdown_images(item['content'], base_path)
+                    st.markdown(processed_content)
                 else:
                     st.info("No content available.")
                     
