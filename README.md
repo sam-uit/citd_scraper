@@ -55,7 +55,7 @@ Scraped data is organized in the `thongbao/` directory:
 To view and tag the announcements:
 
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
 The app will open in your default browser (usually at `http://localhost:8501`).
