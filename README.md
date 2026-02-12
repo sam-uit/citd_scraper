@@ -18,80 +18,68 @@ This project provides a web scraper for CITD announcements and a Streamlit appli
 
 ### 1. Scraper
 
-To scrape the latest announcements:
+To scrape the latest announcements (Học vụ & Chung):
 
 ```bash
-uv run python scraper.py
+uv run main.py
 ```
 
-To scrape **all** pages (deep scrape):
-```bash
-uv run python scraper.py --all
-```
+**Options:**
 
-To **force refresh** all announcements (ignore local database):
-```bash
-uv run python scraper.py --pull
-```
+-   `--all`: Scrape **all** pages (deep scrape).
+-   `--pages N`: Scrape the first **N** pages.
+-   `--pull`: **Force refresh** all announcements (re-scrape even if exists in DB).
+-   `--download`: **Download document attachments** (PDF, DOC, ZIP, etc.).
+-   `--no-md`: Skip Markdown file generation (JSON only).
+-   `--regenerate`: **Regenerate Markdown files** from local JSON data (useful after template updates).
+-   `--headless`: Run browser in **headless mode** (no visible UI).
 
-To **download document attachments** (PDF, DOC, etc.):
-```bash
-uv run python scraper.py --download
-```
+**Examples:**
 
-*Note: Images are always downloaded automatically.*
-
-To **scrape a specific number of pages** (e.g., 2 newest pages):
 ```bash
-uv run python scraper.py -p 2
-```
+# Scrape the first 2 pages of all categories in headless mode
+uv run main.py --pages 2 --headless
 
-To run in **headless mode** (experimental, may be blocked by Cloudflare):
-```bash
-uv run python scraper.py --headless
+# Deep scrape everything and download documents
+uv run main.py --all --download
 ```
 
 ### 📂 Directory Structure
 Scraped data is organized in the `thongbao/` directory:
 - `thongbao.json`: Centralized index database.
-- `thongbao/assets/images/`: Downloaded images.
-- `thongbao/assets/documents/`: Downloaded documents (if `--download` is used).
-- `thongbao/[category]/`: Markdown and JSON metadata for each announcement.
-
-*Note: If the scraper encounters Cloudflare protection (403 Forbidden), it will attempt to use `curl_cffi` to bypass it. If that fails, you can generate data from local HTML files (if available) using:*
-
-```bash
-uv run python process_local.py
-```
+- `thongbao/[category]/`: Contains JSON data and Markdown files.
+- `thongbao/[category]/assets/`: Contains downloaded images and documents.
 
 ### 2. Viewer (Streamlit App)
 
 To view and tag the announcements:
 
 ```bash
-uv run streamlit run app.py
+streamlit run app.py
 ```
 
 The app will open in your default browser (usually at `http://localhost:8501`).
 
 ## Features
 
--   **Scraper**: Fetches title, date, author, content, and assets (PDFs).
--   **Viewer**:
+-   **Robust Scraper**: Uses `DrissionPage` to bypass Cloudflare protection.
+-   **Multi-Category Support**: Scrapes both "Thông báo học vụ" and "Thông báo chung".
+-   **Local Asset Storage**: Images and documents are saved locally in `thongbao/[category]/assets/`, ensuring portability.
+-   **Markdown Generation**: Automatically converts HTML content to clean Markdown with embedded local images.
+-   **Streamlit Viewer**:
     -   Sorts announcements by date (newest first).
-    -   Filter by tags.
+    -   Filter by **Category** and **Tags**.
     -   Search by title/content.
-    -   View details and download attachments.
-    -   **Tagging**: Add or edit tags for any announcement. Tags are saved locally.
-
-## Known Issues
-
--   **Asset Downloading**: The CITD website uses strict Cloudflare protection which may block automated downloads of attached files (PDF/Doc), resulting in 403 Forbidden errors. The scraper will attempt to download them, but if blocked, the files will not be saved locally. You can still access the files via the links in the generated Markdown content.
+    -   View details with rendered Markdown and images.
+    -   **Tagging**: Add/Edit tags for any announcement (persisted locally).
+-   **Centralized Configuration**: All settings managed in `settings/settings.py`.
 
 ## Project Structure
 
--   `scraper.py`: Main scraping script.
--   `app.py`: Streamlit application.
--   `process_local.py`: Utility to process local HTML files (fallback).
--   `requirements.txt`: Python dependencies.
--   `thongbao/`: Directory where data is saved (JSON, MD, assets).
+-   `main.py`: CLI entry point for the scraper.
+-   `app.py`: Streamlit application entry point.
+-   `services/scraper_service.py`: Core scraping logic.
+-   `settings/settings.py`: Configuration (URLs, directories).
+-   `models/ThongBao.py`: Data model.
+-   `utils/`: Helper utilities for networking, markdown, etc.
+-   `thongbao/`: Data directory.
