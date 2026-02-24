@@ -1,6 +1,21 @@
 # CITD Scraper & Viewer
 
-This project provides a web scraper for CITD announcements and a Streamlit application to view and tag them locally.
+This project provides a web scraper for CITD announcements and a Streamlit application to view and tag them locally for your own workflow.
+
+## What is this?
+
+- A scraper to scrape CITD announcements (Thông Báo).
+- There are 2 categories: Thông Báo Học Vụ & Thông Báo Chung.
+- Scrape and save into local .json file with timestamp and id.
+- Gerate Markdown files and save to your Obsidian vault.
+
+Examples:
+
+![Example 01](docs/assets/thongbao-ex-01.png)
+
+![Example 01](docs/assets/thongbao-ex-02.png)
+
+![Example 01](docs/assets/thongbao-ex-03.png)
 
 ## Setup
 
