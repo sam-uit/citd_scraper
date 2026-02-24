@@ -11,6 +11,8 @@ Dự án này cung cấp một công cụ cào dữ liệu (scraper) cho các th
 
 Ví dụ:
 
+- Tham khảo [Kho Quản Lý Quá Trình & Học Liệu LT.K2025.2-CNTT](https://github.com/lt20252cnttalpha/LT.K2025.2-CNTT)
+
 ![Ví dụ 01](docs/assets/thongbao-ex-01.png)
 
 ![Ví dụ 02](docs/assets/thongbao-ex-02.png)
