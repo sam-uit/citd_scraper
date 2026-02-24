@@ -1,7 +1,7 @@
 [project]
 name = "citd-scraper"
 version = "0.1.0"
-description = "Add your description here"
+description = "A web scraper for CITD announcements."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
