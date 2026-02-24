@@ -20,13 +20,15 @@ This project provides a web scraper for CITD announcements and a Streamlit appli
 
 To scrape the latest announcements (Học vụ & Chung):
 
+- Scrape the first page only (default). Similar to `--pages 1`.
+
 ```bash
 uv run main.py
 ```
 
 **Options:**
 
--   `--all`: Scrape **all** pages (deep scrape).
+-   `--all`: Scrape **all** pages (deep scrape). NOT RECOMMENDED!
 -   `--pages N`: Scrape the first **N** pages.
 -   `--pull`: **Force refresh** all announcements (re-scrape even if exists in DB).
 -   `--download`: **Download document attachments** (PDF, DOC, ZIP, etc.).
