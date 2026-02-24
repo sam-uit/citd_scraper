@@ -104,3 +104,7 @@ uv run streamlit run app.py
 - `models/ThongBao.py`: Mô hình dữ liệu.
 - `utils/`: Các hàm tiện ích hỗ trợ networking, markdown, v.v.
 - `thongbao/`: Thư mục lưu dữ liệu.
+
+## TODO
+
+- [ ] Chuyển thành Obsidian Plugin để cào trực tiếp từ Obsidian.
